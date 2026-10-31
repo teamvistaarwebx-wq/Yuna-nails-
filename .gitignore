@@ -1,0 +1,7 @@
+node_modules/
+.shopify/
+.env
+.env.*
+reports/raw/
+*.log
+.DS_Store

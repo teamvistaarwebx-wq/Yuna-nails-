@@ -1,0 +1,11 @@
+# Pages scanned by `npm run audit:facts -- --urls reports/fact-urls.txt`.
+# Standard Shopify paths only. Add product, page and FAQ handles once the store is reachable.
+https://yunanails.in/
+https://yunanails.in/collections/all
+https://yunanails.in/cart
+https://yunanails.in/policies/shipping-policy
+https://yunanails.in/policies/refund-policy
+# https://yunanails.in/products/<handle>
+# https://yunanails.in/pages/<size-chart>
+# https://yunanails.in/pages/<fit-guide>
+# https://yunanails.in/pages/<faq>
