@@ -3,12 +3,12 @@
 // SAMPLE so the prototype can calculate; it shows a yellow TO CONFIRM tag wherever it appears.
 
 export const offers = {
-  savingsDisplay: { value: 'rupees', toConfirm: 'rupees or percent (open item 4)' }, // 'rupees' | 'percent' | 'both'
+  savingsDisplay: { value: 'rupees', toConfirm: 'rupees or percent' }, // 'rupees' | 'percent' | 'both'
 
   tiers: [
     { qty: 1, label: '1 set' },
-    { qty: 2, label: '2 sets', benefit: 'Free nail glue remover', toConfirm: 'final 2-set offer (open item 5)' },
-    { qty: 3, label: '3 sets', savingRupees: 300, toConfirm: '3-set rupee saving, sample Rs 300 (open item 5)' },
+    { qty: 2, label: '2 sets', benefit: 'Free nail glue remover', toConfirm: '2-set offer' },
+    { qty: 3, label: '3 sets', savingRupees: 300, toConfirm: '3-set saving (sample)' },
   ],
 
   nudges: {
@@ -17,7 +17,7 @@ export const offers = {
   },
 
   gifts: {
-    toConfirm: 'gift thresholds and gifts, samples shown (open item 5)',
+    toConfirm: 'gift thresholds (samples)',
     steps: [
       { threshold: 2500, gift: 'a free gift' },
       { threshold: 3500, gift: 'a second free gift' },

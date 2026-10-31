@@ -82,13 +82,13 @@ mark.confirm {
   padding: 4px 6px; border-radius: 4px; background: rgba(255, 255, 255, .85); color: #333;
 }
 .pin {
-  position: absolute; z-index: 30; top: -10px; right: -10px; width: 24px; height: 24px; padding: 0;
+  position: absolute; z-index: 30; top: 6px; right: 6px; width: 24px; height: 24px; padding: 0;
   border: 2px solid #fff; border-radius: 50%; background: var(--proto-pin); color: var(--proto-pin-fg);
   font: 700 12px/1 system-ui, sans-serif; display: none; align-items: center; justify-content: center;
 }
 [data-notes="on"] .pin { display: inline-flex; }
 .pin-pop {
-  position: absolute; z-index: 31; top: 18px; right: -6px; width: min(280px, 80vw);
+  position: absolute; z-index: 31; top: 34px; right: 6px; width: min(280px, calc(100vw - 32px));
   padding: 10px 12px; border-radius: 8px; background: #14213D; color: #fff;
   font: 13px/1.4 system-ui, -apple-system, "Segoe UI", sans-serif; text-align: left;
 }

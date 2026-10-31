@@ -13,12 +13,12 @@ export const facts = {
   priceRange: { value: [999, 2499], source: 'Brief 5: Rs 999 to Rs 2,499 a set' },
   glueIncluded: { value: true, source: 'Brief 5: nail glue in every set' },
 
-  applyTime: { confirm: 'apply time: 5 minutes or about 2?', item: 2 },
+  applyTime: { confirm: 'apply time, 5 or 2 min', item: 2 },
   costPerWear: { confirm: 'cost per wear', item: 3 },
   wearCount: { confirm: 'number of wears', item: 3 },
-  betweenSizes: { confirm: 'between two sizes: larger or smaller?', item: 1 },
-  adhesiveTabs: { confirm: 'adhesive tabs in the box?', item: 6 },
-  freeShipping: { confirm: 'free shipping above Rs 999, or free on prepaid?', item: 11 },
+  betweenSizes: { confirm: 'larger or smaller?', item: 1 },
+  adhesiveTabs: { confirm: 'tabs in the box?', item: 6 },
+  freeShipping: { confirm: 'free-shipping rule', item: 11 },
 };
 
 export const safetyNotes = [
@@ -28,6 +28,6 @@ export const safetyNotes = [
 ];
 
 // Size chart in mm. The current site has one; the values have not been copied yet.
-export const sizeChart = { confirm: 'size chart mm values (copy from current site)', item: 'size chart' };
+export const sizeChart = { confirm: 'mm values', item: 'size chart' };
 
 export const trustLine = ['Hand-painted', 'Made to order', 'Dispatch in 24–48 hours', 'COD available'];

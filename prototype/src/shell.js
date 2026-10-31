@@ -168,12 +168,17 @@ window.addEventListener('message', (e) => {
     const next = { id: e.data.id, state: e.data.state || null, journey: route ? route.journey : null };
     if (next.journey !== null) {
       // Advance the journey counter when the screen matches a later step.
-      const idx = JOURNEY.findIndex((s, i) => i >= next.journey && s.id === next.id && (!s.state || s.state === next.state));
+      let idx = -1;
+      JOURNEY.forEach((s, i) => { if (i >= next.journey && s.id === next.id && (!s.state || s.state === next.state)) idx = i; });
       if (idx >= 0) next.journey = idx;
     }
     route = next;
     history.replaceState(null, '', hashFor(route));
     renderToolbar();
+    const def = byId(route.id);
+    const cap = shell.querySelector('.stage__caption');
+    if (cap && def) cap.textContent = `${def.title} · ${def.summary}`;
+    if (def) document.title = `${def.title} · Yuna prototype`;
   }
   if (e.data.type === 'proto:toast') toast(e.data.text);
 });

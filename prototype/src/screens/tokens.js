@@ -61,7 +61,7 @@ export function render({ root }) {
         <p class="eyebrow">Most loved</p>
         <p class="lead">Hand-painted press-ons, made to order for your size.</p>
         <p>Body text in Urbanist. Calm, warm, specific. <span class="price">Rs 1,499</span></p>
-        <p class="tiny muted">Headings: Darel Rolando when the font files arrive ${confirmTag('Darel Rolando web font files and licence (open item 10)')}. Until then, a fallback serif.</p>
+        <p class="tiny muted">Headings: Darel Rolando when the font files arrive ${confirmTag('Darel Rolando font files')}. Until then, a fallback serif.</p>
       </section>
 
       <section class="stack" id="tk-space">

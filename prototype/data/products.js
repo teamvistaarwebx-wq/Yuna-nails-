@@ -9,8 +9,11 @@ export const products = [
 ];
 
 // Shape and length per design are not known yet.
-export const productMetaConfirm = 'shape and length per design';
+export const productMetaConfirm = 'shape · length';
 // More designs: the full list needs the store export or network access.
-export const moreProductsConfirm = 'rest of the catalogue (needs store access)';
+export const moreProductsConfirm = 'rest of the catalogue';
 
+// Moods for "Shop by mood" are not decided (open item 14).
+export const moodsConfirm = 'mood categories';
+export const productByHandle = (h) => products.find((p) => p.handle === h);
 export const cheapestPrice = () => Math.min(...products.map((p) => p.price));

@@ -93,5 +93,5 @@ export const JOURNEY = [
   { id: 'checkout', label: 'GoKwik placeholder' },
 ];
 
-export const BUILT_STEP = 1; // screens with step <= BUILT_STEP are built
+export const BUILT_STEP = 5; // screens with step <= BUILT_STEP are built
 export const byId = (id) => screens.find((s) => s.id === id);

@@ -9,12 +9,17 @@ const { chromium } = createRequire(import.meta.url)('playwright');
 
 const base = process.argv[2] || 'http://127.0.0.1:5173';
 const out = process.argv[3] || 'screens';
-const list = (process.argv[4] || 'map,tokens').split(',');
+let list = (process.argv[4] || 'map,tokens').split(',');
+const modes = (process.argv[5] || 'styled,wireframe').split(',');
+if (list[0] === 'all') {
+  const { screens } = await import('../src/screens/registry.js');
+  list = ['map', ...screens.flatMap((s) => s.states.map((st, i) => (i === 0 ? s.id : `${s.id}:${st.id}`)))];
+}
 fs.mkdirSync(out, { recursive: true });
 
 const browser = await chromium.launch();
 const problems = [];
-for (const mode of ['styled', 'wireframe']) {
+for (const mode of modes) {
   for (const [w, h, tag] of [[375, 812, 'm'], [1440, 900, 'd']]) {
     const ctx = await browser.newContext({ viewport: { width: w, height: h }, deviceScaleFactor: tag === 'm' ? 2 : 1 });
     await ctx.addInitScript((m) => { try { localStorage.setItem('yuna-proto-prefs', JSON.stringify({ mode: m, notes: true, device: 'phone' })); } catch (e) {} }, mode);
@@ -27,10 +32,12 @@ for (const mode of ['styled', 'wireframe']) {
       else if (name === 'shell') url = `${base}/#/${state}`;
       else url = `${base}/screen.html#/${name}${state ? `?state=${state}` : ''}`;
       await page.goto(url, { waitUntil: 'networkidle' });
-      await page.waitForTimeout(300);
+      await page.waitForTimeout(name === 'footer' ? 500 : 350);
       const over = await page.evaluate(() => document.documentElement.scrollWidth - document.documentElement.clientWidth);
       if (over > 0) problems.push(`${mode} ${tag} ${item}: overflows by ${over}px`);
       const file = `${out}/${item.replace(':', '--')}-${mode}-${tag}.jpg`;
+      // Fixed bars freeze mid-page in full-page captures; hide them there (they are shown in the viewport shots).
+      if (name !== 'shell') await page.addStyleTag({ content: '.sticky, .wa-float { display: none !important; }' });
       await page.screenshot({ path: file, fullPage: name !== 'shell', type: 'jpeg', quality: 80 });
     }
     await ctx.close();
