@@ -1,0 +1,20 @@
+<!doctype html>
+<html lang="en" data-mode="styled">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Yuna screen</title>
+  <link rel="preload" href="/fonts/urbanist-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="/src/tokens.css">
+  <link rel="stylesheet" href="/src/ui.css">
+  <script>
+    // Apply the viewer's mode before first paint, so there is no flash between wireframe and styled.
+    try { const p = JSON.parse(localStorage.getItem('yuna-proto-prefs') || '{}'); if (p.mode) document.documentElement.dataset.mode = p.mode; if (p.notes) document.documentElement.dataset.notes = 'on'; } catch (e) {}
+  </script>
+</head>
+<body>
+  <div id="app"></div>
+  <div class="toast-host" id="toastHost" aria-live="polite"></div>
+  <script type="module" src="/src/app.js"></script>
+</body>
+</html>

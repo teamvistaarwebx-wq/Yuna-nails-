@@ -1,0 +1,71 @@
+/* Design tokens: the only place brand values live. Components read var(--…) and nothing else.
+   Styled mode = Soft Glam (brief 3). Wireframe mode = the same tokens set to greys (brief 14, "grey first"). */
+
+@font-face { font-family: "Urbanist"; src: url("/fonts/urbanist-latin-400-normal.woff2") format("woff2"); font-weight: 400; font-display: swap; }
+@font-face { font-family: "Urbanist"; src: url("/fonts/urbanist-latin-500-normal.woff2") format("woff2"); font-weight: 500; font-display: swap; }
+@font-face { font-family: "Urbanist"; src: url("/fonts/urbanist-latin-600-normal.woff2") format("woff2"); font-weight: 600; font-display: swap; }
+/* Darel Rolando: add @font-face here when the licensed woff2 files arrive (open item 10). Until then the fallback serif is used. */
+
+:root {
+  /* Brand colours (final, brief 3) */
+  --color-burgundy: #3D0B0E;
+  --color-cream: #F4EAE0;
+  --color-olive-gold: #52451B;
+  --color-soft-blue: #B8D4E3;
+
+  /* Roles */
+  --color-text: var(--color-burgundy);
+  --color-bg: var(--color-cream);
+  --color-accent: var(--color-olive-gold);
+  --color-on-primary: var(--color-cream);
+  --color-surface: color-mix(in srgb, var(--color-cream) 55%, #ffffff);
+  --color-info: color-mix(in srgb, var(--color-soft-blue) 55%, var(--color-cream));
+  --color-muted: color-mix(in srgb, var(--color-burgundy) 72%, var(--color-cream));
+  --color-line: color-mix(in srgb, var(--color-burgundy) 16%, var(--color-cream));
+  --color-line-strong: color-mix(in srgb, var(--color-burgundy) 38%, var(--color-cream));
+  --color-placeholder: color-mix(in srgb, var(--color-burgundy) 9%, var(--color-cream));
+  --color-scrim: color-mix(in srgb, var(--color-burgundy) 35%, transparent);
+
+  /* Type */
+  --font-heading: "Darel Rolando", "Iowan Old Style", "Palatino Linotype", Palatino, "Noto Serif", Georgia, serif;
+  --font-body: "Urbanist", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --text-xs: 12px; --text-sm: 14px; --text-md: 16px; --text-lg: 18px;
+  --h1: 36px; --h2: 28px; --h3: 20px;
+
+  /* Shape and space (8 px scale) */
+  --radius: 8px;
+  --radius-lg: 16px;
+  --line: 1px;
+  --space-1: 8px; --space-2: 16px; --space-3: 24px; --space-4: 32px; --space-5: 40px; --space-6: 48px; --space-8: 64px; --space-10: 80px;
+  --tap: 44px;
+  --button-height: 48px;
+  --gutter: 16px;
+  --page-width: 1280px;
+
+  /* Prototype annotations (not brand): TO CONFIRM tags, note pins, placeholder tags */
+  --proto-confirm-bg: #FFE27A;
+  --proto-confirm-fg: #3B2F00;
+  --proto-pin: #1F5EFF;
+  --proto-pin-fg: #FFFFFF;
+}
+
+/* Wireframe mode: greyscale, no brand colour, system type, grey boxes instead of photos. */
+:root[data-mode="wireframe"] {
+  --color-burgundy: #2B2B2B;
+  --color-cream: #F3F3F3;
+  --color-olive-gold: #555555;
+  --color-soft-blue: #D6D6D6;
+  --color-surface: #FFFFFF;
+  --color-info: #E4E4E4;
+  --color-muted: #6E6E6E;
+  --color-line: #D2D2D2;
+  --color-line-strong: #A8A8A8;
+  --color-placeholder: #DADADA;
+  --color-scrim: rgba(0, 0, 0, .3);
+  --font-heading: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --font-body: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+}
+
+@media (min-width: 990px) {
+  :root { --h1: 56px; --h2: 40px; --h3: 24px; --gutter: 40px; }
+}

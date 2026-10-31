@@ -1,0 +1,16 @@
+{
+  "name": "yuna-prototype",
+  "private": true,
+  "type": "module",
+  "description": "Clickable UI prototype of the yunanails.in redesign. Static front end only.",
+  "scripts": {
+    "dev": "vite --port 5173 --open",
+    "dev:noopen": "vite --port 5173",
+    "build": "vite build",
+    "preview": "vite preview --port 5173",
+    "shoot": "node scripts/shoot.mjs"
+  },
+  "devDependencies": {
+    "vite": "6.4.4"
+  }
+}
