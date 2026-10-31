@@ -1,0 +1,54 @@
+{%- comment -%}
+  Responsive image, or video with a poster that loads first.
+  - image: image object (poster for video)
+  - video: video object (Shopify-hosted). Starts only after the page has loaded (see assets/theme.js).
+  - ratio: square | portrait | tall | wide (default portrait)
+  - sizes: sizes attribute
+  - priority: true for the one LCP image on the page
+  - label: shown on an empty slot, e.g. "Hand video 4:5"
+  - class: extra classes
+{%- endcomment -%}
+{%- liquid
+  assign ratio = ratio | default: 'portrait'
+  assign sizes = sizes | default: '100vw'
+  assign poster = image
+  if poster == blank and video != blank
+    assign poster = video.preview_image
+  endif
+  if priority
+    assign loading = 'eager'
+    assign fetch = 'high'
+  else
+    assign loading = 'lazy'
+    assign fetch = 'auto'
+  endif
+  assign alt = alt | default: poster.alt | default: label | escape
+-%}
+<div class="media media--{{ ratio }}{% if class %} {{ class }}{% endif %}">
+  {%- if poster != blank -%}
+    {{ poster | image_url: width: 1500 | image_tag: widths: '360, 540, 720, 960, 1200, 1500', sizes: sizes, loading: loading, fetchpriority: fetch, alt: alt }}
+  {%- endif -%}
+  {%- if video != blank -%}
+    {%- liquid
+      assign chosen = blank
+      for source in video.sources
+        if source.format == 'mp4'
+          if chosen == blank
+            assign chosen = source
+          elsif source.width >= 640 and source.width < chosen.width
+            assign chosen = source
+          elsif chosen.width < 640 and source.width > chosen.width
+            assign chosen = source
+          endif
+        endif
+      endfor
+    -%}
+    {%- if chosen != blank -%}
+      <video muted playsinline loop preload="none" data-deferred-video data-src="{{ chosen.url }}" aria-label="{{ alt }}"{% if poster != blank %} poster="{{ poster | image_url: width: 720 }}"{% endif %}></video>
+    {%- endif -%}
+  {%- endif -%}
+  {%- if poster == blank and video == blank -%}
+    {{ 'lifestyle-1' | placeholder_svg_tag: 'placeholder-svg' }}
+    {%- if label != blank %}<span class="media__label">{{ label }}</span>{% endif -%}
+  {%- endif -%}
+</div>

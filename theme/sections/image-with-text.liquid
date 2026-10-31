@@ -1,0 +1,30 @@
+<div class="section{% if section.settings.surface %} section--surface{% endif %}">
+  <div class="page-width two-col">
+    <div{% if section.settings.image_right %} style="order:2"{% endif %}>{% render 'media', image: section.settings.image, ratio: 'portrait', sizes: '(min-width: 990px) 45vw, 100vw', label: section.settings.label %}</div>
+    <div class="stack" style="align-self:center">
+      {%- if section.settings.eyebrow != blank -%}<p class="eyebrow">{{ section.settings.eyebrow }}</p>{%- endif -%}
+      <h2 class="h2">{{ section.settings.heading }}</h2>
+      <div class="rte">{% render 'fact', text: section.settings.text %}</div>
+      {%- if section.settings.signature != blank -%}<p class="h3" style="margin-top:16px">{{ section.settings.signature }}</p>{%- endif -%}
+      {%- if section.settings.button_label != blank -%}<p><a class="button button--secondary" href="{{ section.settings.button_link }}">{{ section.settings.button_label }}</a></p>{%- endif -%}
+    </div>
+  </div>
+</div>
+{% schema %}
+{
+  "name": "Image with text",
+  "settings": [
+    { "type": "image_picker", "id": "image", "label": "Image (4:5)" },
+    { "type": "text", "id": "label", "label": "Empty slot label", "default": "Photo 4:5" },
+    { "type": "checkbox", "id": "image_right", "label": "Image on the right (desktop)", "default": false },
+    { "type": "text", "id": "eyebrow", "label": "Small line above" },
+    { "type": "inline_richtext", "id": "heading", "label": "Heading", "default": "Hand-painted by <em>our</em> artists" },
+    { "type": "richtext", "id": "text", "label": "Text" },
+    { "type": "text", "id": "signature", "label": "Signature" },
+    { "type": "text", "id": "button_label", "label": "Button label" },
+    { "type": "url", "id": "button_link", "label": "Button link" },
+    { "type": "checkbox", "id": "surface", "label": "Soft background", "default": false }
+  ],
+  "presets": [ { "name": "Image with text" } ]
+}
+{% endschema %}

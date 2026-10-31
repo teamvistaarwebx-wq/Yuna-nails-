@@ -1,0 +1,82 @@
+{%- comment -%}
+  Product gallery + buy box. Used by the product page and the launched kit page.
+  - product, section, app_html (app blocks such as the AR try-on, rendered by the section)
+  Order (fixed by the brief): hand media first, title, price, size (none selected) with Size me later,
+  bundle selector above Add to bag, Add to bag, Buy now (one set only), trust line, app blocks (AR try-on), add-on.
+{%- endcomment -%}
+{%- liquid
+  assign variant = product.selected_or_first_available_variant
+  assign form_id = 'ProductForm-' | append: section.id
+  assign shape = product.metafields.custom.shape.value
+  assign length = product.metafields.custom.length.value
+  assign media_count = product.media.size
+-%}
+<div class="page-width section--tight">
+  <div class="product" data-product-root>
+    {% render 'product-json', product: product %}
+    <div class="gallery" aria-label="Product photos and videos">
+      <div class="gallery__track">
+        {%- for media in product.media -%}
+          <div class="gallery__item">
+            {%- liquid
+              assign is_first = forloop.first
+              case media.media_type
+                when 'video'
+                  render 'media', video: media, ratio: 'portrait', sizes: '(min-width: 990px) 55vw, 100vw', priority: is_first, alt: media.alt
+                else
+                  render 'media', image: media.preview_image, ratio: 'portrait', sizes: '(min-width: 990px) 55vw, 100vw', priority: is_first, alt: media.alt
+              endcase
+            -%}
+          </div>
+        {%- else -%}
+          <div class="gallery__item">{% render 'media', ratio: 'portrait', label: 'Hand video 4:5' %}</div>
+        {%- endfor -%}
+      </div>
+      {%- if media_count > 1 -%}<p class="gallery__count" data-gallery-count aria-hidden="true">1 / {{ media_count }}</p>{%- endif -%}
+    </div>
+
+    <div class="product__info">
+      <h1 class="product__title h2">{{ product.title }}</h1>
+      <div class="product__meta">
+        <span class="price" data-price>{{ variant.price | money_without_trailing_zeros }}</span>
+        {%- if settings.show_compare_at and variant.compare_at_price > variant.price -%}<s class="muted small">{{ variant.compare_at_price | money_without_trailing_zeros }}</s>{%- endif -%}
+        {%- if shape != blank or length != blank -%}<span class="small muted">{{ shape }}{% if shape != blank and length != blank %} · {% endif %}{{ length }}</span>{%- endif -%}
+        <a class="product__rating" href="#reviews">{% render 'rating', product: product, class: 'product__rating' %}</a>
+      </div>
+
+      <form method="post" action="{{ routes.cart_add_url }}" id="{{ form_id }}" data-product-form novalidate>
+        <input type="hidden" name="id" value="{{ variant.id }}">
+        {% render 'size-selector', product: product, form_id: form_id %}
+        {% render 'bundle-selector', variant: variant, form_id: form_id %}
+        <div class="buy-buttons">
+          {%- if product.available -%}
+            <button type="submit" class="button button--full" data-add aria-disabled="true">Add to bag</button>
+            {%- if section.settings.show_buy_now -%}
+              <button type="button" class="button button--secondary button--full" data-buy-now aria-disabled="true">Buy now</button>
+            {%- endif -%}
+          {%- else -%}
+            <button type="button" class="button button--full" disabled>Not available right now</button>
+          {%- endif -%}
+        </div>
+      </form>
+
+      {% render 'trust-line', class: 'product__trust' %}
+
+      <div class="product__app-slot">{{ app_html }}</div>
+
+      {%- if section.settings.show_remover and settings.remover_product != blank -%}
+        <div class="addons">
+          <p class="addons__title">Add to your order</p>
+          {% render 'addon-card', type: 'remover' %}
+        </div>
+      {%- endif -%}
+    </div>
+  </div>
+</div>
+
+{%- if product.available -%}
+  <div class="sticky-buy" data-sticky-buy aria-hidden="false">
+    <div class="sticky-buy__info"><strong>{{ product.title }}</strong><span class="price">{{ variant.price | money_without_trailing_zeros }}</span></div>
+    <button type="button" class="button" data-sticky-add data-label-ready="Add to bag" data-label-choose="Choose your size">Choose your size</button>
+  </div>
+{%- endif -%}

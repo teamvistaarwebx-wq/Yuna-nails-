@@ -1,0 +1,15 @@
+{%- comment -%} Inline "notify me" email form for the kit. Saves a customer tagged "kit-notify". No popup. - form_id {%- endcomment -%}
+{%- form 'customer', id: form_id, class: 'notify' -%}
+  <input type="hidden" name="contact[tags]" value="kit-notify,newsletter">
+  {%- if form.posted_successfully? -%}
+    <p class="form-message" role="status">Thank you. We'll email you when the kit launches.</p>
+  {%- else -%}
+    {%- if form.errors -%}<p class="form-message form-message--error" role="alert">{{ form.errors.translated_fields.email | capitalize }} {{ form.errors.messages.email }}</p>{%- endif -%}
+    <label class="visually-hidden" for="{{ form_id }}-email">Email address</label>
+    <div class="inline-form">
+      <input class="input" id="{{ form_id }}-email" type="email" name="contact[email]" autocomplete="email" placeholder="Email address" required>
+      <button class="button" type="submit">Notify me</button>
+    </div>
+    <p class="tiny muted" style="margin-top:8px">One email when it launches. Nothing else unless you ask.</p>
+  {%- endif -%}
+{%- endform -%}

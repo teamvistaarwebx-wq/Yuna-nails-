@@ -1,0 +1,27 @@
+<div class="section section--tight">
+  <div class="page-width">
+    <div class="section__head section__head--center">
+      <h2 class="h2">{{ section.settings.heading }}</h2>
+      {%- if settings.instagram_url != blank -%}<a class="link" href="{{ settings.instagram_url }}" target="_blank" rel="noopener">{{ section.settings.handle }}</a>{%- endif -%}
+    </div>
+    <div class="grid" style="grid-template-columns:repeat(3,1fr);gap:8px">
+      {%- for block in section.blocks -%}
+        <a href="{{ block.settings.link | default: settings.instagram_url }}" target="_blank" rel="noopener" {{ block.shopify_attributes }} aria-label="Instagram post">
+          {% render 'media', image: block.settings.image, ratio: 'square', sizes: '(min-width: 990px) 20vw, 33vw', label: '1:1' %}
+        </a>
+      {%- endfor -%}
+    </div>
+  </div>
+</div>
+{% schema %}
+{
+  "name": "Instagram",
+  "settings": [
+    { "type": "inline_richtext", "id": "heading", "label": "Heading", "default": "On <em>Instagram</em>" },
+    { "type": "text", "id": "handle", "label": "Handle", "default": "@yunanails" }
+  ],
+  "blocks": [ { "type": "post", "name": "Post", "settings": [ { "type": "image_picker", "id": "image", "label": "Image" }, { "type": "url", "id": "link", "label": "Post link" } ] } ],
+  "max_blocks": 6,
+  "presets": [ { "name": "Instagram", "blocks": [ { "type": "post" }, { "type": "post" }, { "type": "post" } ] } ]
+}
+{% endschema %}

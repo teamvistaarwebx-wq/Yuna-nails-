@@ -1,0 +1,32 @@
+{
+  "_note": "Local preview only. Open items stay open. The two gift steps are labelled [sample] so the bar can be seen; real values come from docs/open-items.md #5.",
+  "money_format": "Rs {{amount}}",
+  "settings": {
+    "bestsellers_collection": "bestsellers",
+    "kit_product": "nail-care-kit",
+    "gift_1_threshold": 1999,
+    "gift_1_label": "Sample gift 1",
+    "gift_2_threshold": 2999,
+    "gift_2_label": "Sample gift 2"
+  },
+  "sections": {
+    "template--index__hero": {
+      "price_collection": "all",
+      "button_link": "/collections/all"
+    },
+    "template--index__bestsellers": {
+      "collection": "bestsellers"
+    },
+    "template--index__build": {
+      "collection": "all"
+    },
+    "template--page.landing__hook": {
+      "price_collection": "all",
+      "button_link": "/collections/all"
+    },
+    "template--page.components__main": {
+      "product": "rose-french",
+      "collection": "all"
+    }
+  }
+}

@@ -1,0 +1,104 @@
+{
+  "sections": {
+    "hook": {
+      "type": "hero",
+      "settings": {
+        "heading": "Salon nails in <em>minutes</em>",
+        "text": "Hand-painted press-ons, made to order for your size.",
+        "button_label": "Shop the sets",
+        "show_trust": true
+      }
+    },
+    "choose": {
+      "type": "landing-choose",
+      "blocks": {
+        "mood1": {
+          "type": "mood",
+          "settings": {
+            "title": "[[TO CONFIRM: mood]]"
+          }
+        },
+        "mood2": {
+          "type": "mood",
+          "settings": {
+            "title": "[[TO CONFIRM: mood]]"
+          }
+        }
+      },
+      "block_order": [
+        "mood1",
+        "mood2"
+      ],
+      "settings": {
+        "heading": "Find your <em>mood</em>",
+        "offers_heading": "More sets, more value",
+        "show_kit": true
+      }
+    },
+    "proof": {
+      "type": "landing-proof",
+      "blocks": {
+        "reel1": {
+          "type": "reel",
+          "settings": {}
+        },
+        "reel2": {
+          "type": "reel",
+          "settings": {}
+        },
+        "reel3": {
+          "type": "reel",
+          "settings": {}
+        },
+        "step1": {
+          "type": "step",
+          "settings": {
+            "title": "Prep",
+            "text": "Clean and dry your nails. Push back cuticles and buff lightly."
+          }
+        },
+        "step2": {
+          "type": "step",
+          "settings": {
+            "title": "Glue",
+            "text": "Add a thin layer of nail glue to your nail and to the press-on."
+          }
+        },
+        "step3": {
+          "type": "step",
+          "settings": {
+            "title": "Press",
+            "text": "Press on from the cuticle and hold firmly. Done."
+          }
+        },
+        "review": {
+          "type": "review",
+          "settings": {
+            "quote": "",
+            "name": "",
+            "source": "Judge.me",
+            "stars": 5
+          }
+        }
+      },
+      "block_order": [
+        "reel1",
+        "reel2",
+        "reel3",
+        "step1",
+        "step2",
+        "step3",
+        "review"
+      ],
+      "settings": {
+        "heading": "Real hands, <em>real</em> reviews",
+        "button_label": "Shop the sets"
+      }
+    }
+  },
+  "order": [
+    "hook",
+    "choose",
+    "proof"
+  ]
+}

@@ -1,0 +1,20 @@
+{%- comment -%} Size chart in mm, from Theme settings > Sizing. One source for the product page, quick add and the size guide. {%- endcomment -%}
+{%- assign rows = settings.size_chart | newline_to_br | split: '<br />' -%}
+{%- if settings.size_chart == blank -%}
+  <p class="small"><mark class="to-confirm">[[TO CONFIRM: size chart in mm, copied from the current site]]</mark></p>
+{%- else -%}
+  <table class="size-chart">
+    <caption class="visually-hidden">Nail widths in millimetres</caption>
+    <thead><tr><th scope="col">Size</th><th scope="col">Thumb</th><th scope="col">Index</th><th scope="col">Middle</th><th scope="col">Ring</th><th scope="col">Little</th></tr></thead>
+    <tbody>
+      {%- for row in rows -%}
+        {%- assign cells = row | strip | split: '|' -%}
+        {%- if cells.size > 1 -%}
+          <tr>{% for cell in cells %}{% if forloop.first %}<th scope="row">{{ cell | strip }}</th>{% else %}<td>{{ cell | strip }}</td>{% endif %}{% endfor %}</tr>
+        {%- endif -%}
+      {%- endfor -%}
+    </tbody>
+  </table>
+  <p class="tiny muted" style="margin-top:8px">Widths in mm, measured across the widest part of each nail.</p>
+{%- endif -%}
+<p class="small" style="margin-top:12px"><strong>Between two sizes?</strong> {% render 'fact', text: '[between_sizes]' %}</p>

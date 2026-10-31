@@ -1,0 +1,65 @@
+{%- assign menu = section.settings.menu -%}
+<header class="site-header">
+  <div class="page-width header__inner">
+    <div class="header__left">
+      <button type="button" class="icon-button header__menu-button" data-menu-open aria-haspopup="dialog" aria-controls="MenuDrawer" aria-label="Menu">{% render 'icon', name: 'menu' %}</button>
+      <a class="header__logo" href="{{ routes.root_url }}">
+        {%- if settings.logo != blank -%}
+          {{ settings.logo | image_url: width: 480 | image_tag: widths: '120, 180, 240, 360, 480', sizes: '(min-width: 990px) 88px, 64px', alt: shop.name, loading: 'eager' }}
+        {%- else -%}
+          {{ shop.name }}
+        {%- endif -%}
+      </a>
+    </div>
+    <nav aria-label="Main">
+      <ul class="header__nav">
+        {%- for link in menu.links -%}
+          <li><a href="{{ link.url }}"{% if link.current %} aria-current="page"{% endif %}>{{ link.title }}</a></li>
+        {%- endfor -%}
+      </ul>
+    </nav>
+    <div class="header__right">
+      <a class="icon-button" href="{{ routes.search_url }}" data-search-open aria-label="Search">{% render 'icon', name: 'search' %}</a>
+      <a class="icon-button" href="{{ routes.cart_url }}" data-cart-toggle aria-label="Bag, {{ cart.item_count }} items">
+        {% render 'icon', name: 'bag' %}
+        <span class="cart-count" data-cart-count{% if cart.item_count == 0 %} hidden{% endif %}>{{ cart.item_count }}</span>
+      </a>
+    </div>
+  </div>
+</header>
+
+<dialog class="overlay overlay--drawer overlay--drawer-left" id="MenuDrawer" aria-label="Menu">
+  <div class="overlay__header">
+    <span class="overlay__title">Menu</span>
+    <button type="button" class="icon-button" data-close aria-label="Close menu">{% render 'icon', name: 'close' %}</button>
+  </div>
+  <div class="overlay__body">
+    <ul class="menu-drawer__list">
+      {%- for link in menu.links -%}
+        <li>
+          <a href="{{ link.url }}"{% if link.current %} aria-current="page"{% endif %}>{{ link.title }}</a>
+          {%- if link.links != blank -%}
+            <ul class="menu-drawer__sub">
+              {%- for child in link.links -%}<li><a href="{{ child.url }}">{{ child.title }}</a></li>{%- endfor -%}
+            </ul>
+          {%- endif -%}
+        </li>
+      {%- endfor -%}
+    </ul>
+    <div class="menu-drawer__foot">
+      <a class="button button--secondary" href="{% render 'whatsapp-url' %}" target="_blank" rel="noopener">{% render 'icon', name: 'whatsapp' %} Help on WhatsApp</a>
+      {%- if shop.customer_accounts_enabled -%}<a class="link" href="{{ routes.account_url }}">Account</a>{%- endif -%}
+    </div>
+  </div>
+</dialog>
+
+{% schema %}
+{
+  "name": "Header",
+  "class": "section-header",
+  "settings": [
+    { "type": "link_list", "id": "menu", "label": "Menu", "default": "main-menu", "info": "Suggested order: Shop all, Collections, Nail care kit, Custom orders, Size guide, Our story, Help." },
+    { "type": "paragraph", "content": "Logo is set in Theme settings > Brand: logo." }
+  ]
+}
+{% endschema %}

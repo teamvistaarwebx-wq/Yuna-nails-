@@ -1,0 +1,35 @@
+{%- comment -%}
+  Saving text for a bundle tier, shown the way Theme settings > Offers > "Show savings as" says.
+  - qty (2 or 3), unit (price in paise)
+{%- endcomment -%}
+{%- liquid
+  if qty == 2
+    assign rupees = settings.bundle_2_saving_rupees
+    assign percent = settings.bundle_2_saving_percent
+  else
+    assign rupees = settings.bundle_3_saving_rupees
+    assign percent = settings.bundle_3_saving_percent
+  endif
+  assign total = unit | times: qty
+  assign save = 0
+  if rupees != blank
+    assign save = rupees | times: 100
+  elsif percent != blank
+    assign save = total | times: percent | divided_by: 100
+  endif
+  if save > 0
+    assign pct = percent
+    if pct == blank
+      assign pct = save | times: 100.0 | divided_by: total | round
+    endif
+    assign save_money = save | money_without_trailing_zeros
+    case settings.savings_display
+      when 'percent'
+        echo 'Save ' | append: pct | append: '%'
+      when 'both'
+        echo 'Save ' | append: save_money | append: ' (' | append: pct | append: '%)'
+      else
+        echo 'Save ' | append: save_money
+    endcase
+  endif
+-%}

@@ -1,0 +1,15 @@
+{%- if section.settings.text != blank -%}
+  <div class="announcement" {{ section.shopify_attributes }}>
+    {%- if section.settings.link != blank -%}<a href="{{ section.settings.link }}">{% render 'fact', text: section.settings.text %}</a>{%- else -%}{% render 'fact', text: section.settings.text %}{%- endif -%}
+  </div>
+{%- endif -%}
+{% schema %}
+{
+  "name": "Announcement bar",
+  "class": "section-announcement",
+  "settings": [
+    { "type": "inline_richtext", "id": "text", "label": "One quiet message", "default": "Hand-painted and made to order. Dispatch in [dispatch_time].", "info": "One line only. Fact tokens like [dispatch_time] are filled in from Theme settings > Facts." },
+    { "type": "url", "id": "link", "label": "Link" }
+  ]
+}
+{% endschema %}

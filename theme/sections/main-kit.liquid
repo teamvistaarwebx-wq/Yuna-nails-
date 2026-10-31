@@ -1,0 +1,54 @@
+{%- comment -%}
+  Nail care kit page. One switch (Theme settings > Products > "Nail care kit is coming soon")
+  moves it between "coming soon" (hero, promise, inline notify form) and the full product page.
+{%- endcomment -%}
+{%- if settings.kit_coming_soon -%}
+  {%- assign kit_img = settings.kit_image | default: product.featured_media.preview_image -%}
+  <div class="page-width section--tight">
+    <div class="product">
+      <div class="gallery">{% render 'media', image: kit_img, ratio: 'portrait', sizes: '(min-width: 990px) 55vw, 100vw', priority: true, label: 'Nail care kit hero 4:5' %}</div>
+      <div class="product__info" id="notify">
+        <p class="kit-status">Coming soon</p>
+        <h1 class="h2">{{ settings.kit_name }}</h1>
+        <p class="lead">{{ settings.kit_promise }}</p>
+        {%- if settings.kit_price_hint != blank -%}<p class="price">{{ settings.kit_price_hint }}</p>{%- endif -%}
+        {% render 'notify-form', form_id: 'KitNotifyMain' %}
+        {%- if section.blocks.size > 0 -%}
+          <div style="margin-top:32px">
+            <p class="addons__title">What's inside</p>
+            <ul class="box-list">
+              {%- for block in section.blocks -%}<li {{ block.shopify_attributes }}>{% render 'fact', text: block.settings.item %}</li>{%- endfor -%}
+            </ul>
+          </div>
+        {%- endif -%}
+      </div>
+    </div>
+  </div>
+{%- else -%}
+  {%- capture app_html -%}
+    {%- for block in section.blocks -%}
+      {%- case block.type -%}
+        {%- when '@app' -%}{% render block %}
+        {%- when 'text' -%}<div class="rte small" {{ block.shopify_attributes }}>{% render 'fact', text: block.settings.text %}</div>
+      {%- endcase -%}
+    {%- endfor -%}
+  {%- endcapture -%}
+  {% render 'product-main', product: product, section: section, app_html: app_html %}
+  {%- if settings.kit_bundle_label != blank -%}
+    <div class="page-width"><p class="note">{{ settings.kit_bundle_label }}</p></div>
+  {%- endif -%}
+{%- endif -%}
+{% schema %}
+{
+  "name": "Nail care kit",
+  "class": "section-main-kit",
+  "settings": [
+    { "type": "checkbox", "id": "show_buy_now", "label": "Show Buy now once launched", "default": true },
+    { "type": "checkbox", "id": "show_remover", "label": "Show the glue remover add-on", "default": false }
+  ],
+  "blocks": [
+    { "type": "item", "name": "Kit item", "settings": [ { "type": "text", "id": "item", "label": "Item", "default": "[[TO CONFIRM: kit item]]" } ] },
+    { "type": "@app" }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,35 @@
+{%- comment -%} Hero / ad landing hook. Poster image is the LCP element; the video starts only after the page has loaded. {%- endcomment -%}
+<section class="hero" aria-label="{{ section.settings.heading | strip_html | escape }}">
+  {% render 'media', image: section.settings.image, video: section.settings.video, ratio: 'portrait', class: 'hero__media', sizes: '(min-width: 990px) 55vw, 100vw', priority: true, label: 'Hand video 4:5 (poster first)', alt: section.settings.image.alt %}
+  <div class="hero__content">
+    {%- if section.settings.eyebrow != blank -%}<p class="eyebrow">{{ section.settings.eyebrow }}</p>{%- endif -%}
+    <h1 class="h1 hero__title">{{ section.settings.heading }}</h1>
+    {%- if section.settings.text != blank -%}<p class="lead hero__text">{{ section.settings.text }}</p>{%- endif -%}
+    {%- if section.settings.price_collection != blank -%}
+      {%- capture from %}{% render 'price-from', collection: section.settings.price_collection %}{% endcapture -%}
+      {%- if from != blank -%}<p class="price hero__price">{{ from }}</p>{%- endif -%}
+    {%- endif -%}
+    <div class="hero__actions">
+      {%- if section.settings.button_label != blank -%}<a class="button" href="{{ section.settings.button_link | default: routes.all_products_collection_url }}">{{ section.settings.button_label }}</a>{%- endif -%}
+    </div>
+    {%- if section.settings.show_trust -%}{% render 'trust-line' %}{%- endif -%}
+  </div>
+</section>
+{% schema %}
+{
+  "name": "Hero",
+  "class": "section-hero",
+  "settings": [
+    { "type": "image_picker", "id": "image", "label": "Poster image (4:5, real hands)", "info": "Loads first. Keep it under 200 KB after Shopify's compression; upload at 1500 px wide." },
+    { "type": "video", "id": "video", "label": "Hand video (4:5, muted, under 3 MB)", "info": "Optional. Starts after the page has loaded, only when on screen." },
+    { "type": "text", "id": "eyebrow", "label": "Small line above" },
+    { "type": "inline_richtext", "id": "heading", "label": "Heading (one italic word at most)", "default": "Salon nails, <em>at home</em>" },
+    { "type": "text", "id": "text", "label": "Text", "default": "Hand-painted press-ons, made to order for your size." },
+    { "type": "collection", "id": "price_collection", "label": "Show 'From' price for this collection", "info": "Read from the cheapest product, never typed." },
+    { "type": "text", "id": "button_label", "label": "Button label", "default": "Shop the sets" },
+    { "type": "url", "id": "button_link", "label": "Button link" },
+    { "type": "checkbox", "id": "show_trust", "label": "Show trust line", "default": true }
+  ],
+  "presets": [ { "name": "Hero" } ]
+}
+{% endschema %}

@@ -1,0 +1,24 @@
+{%- capture app_html -%}
+  {%- for block in section.blocks -%}
+    {%- case block.type -%}
+      {%- when '@app' -%}{% render block %}
+      {%- when 'text' -%}<div class="rte small" {{ block.shopify_attributes }}>{% render 'fact', text: block.settings.text %}</div>
+    {%- endcase -%}
+  {%- endfor -%}
+{%- endcapture -%}
+{% render 'product-main', product: product, section: section, app_html: app_html %}
+{% schema %}
+{
+  "name": "Product",
+  "class": "section-main-product",
+  "settings": [
+    { "type": "checkbox", "id": "show_buy_now", "label": "Show Buy now (one set, straight to checkout)", "default": true },
+    { "type": "checkbox", "id": "show_remover", "label": "Show the glue remover add-on (once the product is set)", "default": true },
+    { "type": "paragraph", "content": "Keep the AR try-on app block here, in its current spot. Do not show the beta camera size finder." }
+  ],
+  "blocks": [
+    { "type": "@app" },
+    { "type": "text", "name": "Text", "settings": [ { "type": "richtext", "id": "text", "label": "Text" } ] }
+  ]
+}
+{% endschema %}

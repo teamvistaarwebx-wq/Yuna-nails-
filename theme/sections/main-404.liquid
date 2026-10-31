@@ -1,0 +1,10 @@
+<div class="section center">
+  <div class="page-width" style="max-width:560px">
+    <h1 class="h1">This page has <em>moved</em></h1>
+    <p class="lead muted">It may have sold out its run, or the link changed.</p>
+    <p style="margin-top:24px"><a class="button" href="{{ settings.bestsellers_collection.url | default: routes.all_products_collection_url }}">Shop bestsellers</a></p>
+  </div>
+</div>
+{% schema %}
+{ "name": "404", "settings": [] }
+{% endschema %}

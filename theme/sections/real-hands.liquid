@@ -1,0 +1,40 @@
+{%- comment -%} Customer reels (UGC) next to real reviews. Never write a review; quote real ones or use the reviews app block. {%- endcomment -%}
+<div class="section" id="real-hands">
+  <div class="page-width">
+    <div class="section__head">
+      <h2 class="h2">{{ section.settings.heading }}</h2>
+      {%- if section.settings.text != blank -%}<p class="muted">{{ section.settings.text }}</p>{%- endif -%}
+    </div>
+    <div class="real-hands">
+      <div class="rail">
+        {%- for block in section.blocks -%}
+          {%- if block.type == 'reel' -%}<div {{ block.shopify_attributes }}>{% render 'ugc-tile', video: block.settings.video, image: block.settings.poster, caption: block.settings.caption %}</div>{%- endif -%}
+        {%- endfor -%}
+      </div>
+      <div class="stack">
+        {%- for block in section.blocks -%}
+          {%- case block.type -%}
+            {%- when 'review' -%}
+              {%- if block.settings.quote != blank -%}<div {{ block.shopify_attributes }}>{% render 'review-tile', quote: block.settings.quote, name: block.settings.name, source: block.settings.source, stars: block.settings.stars %}</div>{%- endif -%}
+            {%- when '@app' -%}{% render block %}
+          {%- endcase -%}
+        {%- endfor -%}
+      </div>
+    </div>
+  </div>
+</div>
+{% schema %}
+{
+  "name": "Real hands",
+  "settings": [
+    { "type": "inline_richtext", "id": "heading", "label": "Heading", "default": "Real <em>hands</em>" },
+    { "type": "text", "id": "text", "label": "Text", "default": "Worn by our customers, filmed by them." }
+  ],
+  "blocks": [
+    { "type": "reel", "name": "Customer reel", "settings": [ { "type": "video", "id": "video", "label": "Reel (9:16, rights confirmed)" }, { "type": "image_picker", "id": "poster", "label": "Poster frame" }, { "type": "text", "id": "caption", "label": "Caption" } ] },
+    { "type": "review", "name": "Review quote", "settings": [ { "type": "paragraph", "content": "Copy a real review word for word. Never write or edit one." }, { "type": "textarea", "id": "quote", "label": "Review" }, { "type": "text", "id": "name", "label": "Customer first name" }, { "type": "text", "id": "source", "label": "Source", "default": "Judge.me" }, { "type": "range", "id": "stars", "label": "Stars", "min": 0, "max": 5, "step": 1, "default": 5 } ] },
+    { "type": "@app" }
+  ],
+  "presets": [ { "name": "Real hands", "blocks": [ { "type": "reel" }, { "type": "reel" }, { "type": "reel" }, { "type": "review" } ] } ]
+}
+{% endschema %}

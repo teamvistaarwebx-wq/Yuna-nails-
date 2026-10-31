@@ -1,0 +1,15 @@
+{%- comment -%} Lowest set price in a collection, read from the products, never typed. - collection {%- endcomment -%}
+{%- liquid
+  assign min = 0
+  for p in collection.products limit: 50
+    if p.price_min > 0
+      if min == 0 or p.price_min < min
+        assign min = p.price_min
+      endif
+    endif
+  endfor
+  if min > 0
+    assign min_money = min | money_without_trailing_zeros
+    echo 'From ' | append: min_money
+  endif
+-%}

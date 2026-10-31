@@ -1,0 +1,66 @@
+{
+  "sections": {
+    "main": {
+      "type": "main-kit",
+      "blocks": {
+        "item1": {
+          "type": "item",
+          "settings": {
+            "item": "[[TO CONFIRM: kit item]]"
+          }
+        },
+        "item2": {
+          "type": "item",
+          "settings": {
+            "item": "[[TO CONFIRM: kit item]]"
+          }
+        },
+        "item3": {
+          "type": "item",
+          "settings": {
+            "item": "[[TO CONFIRM: kit item]]"
+          }
+        }
+      },
+      "block_order": [
+        "item1",
+        "item2",
+        "item3"
+      ],
+      "settings": {
+        "show_buy_now": true,
+        "show_remover": false
+      }
+    },
+    "details": {
+      "type": "product-details",
+      "blocks": {
+        "box": {
+          "type": "description",
+          "settings": {
+            "title": "About the kit"
+          }
+        },
+        "safety": {
+          "type": "safety",
+          "settings": {
+            "title": "Safety notes"
+          }
+        }
+      },
+      "block_order": [
+        "box",
+        "safety"
+      ],
+      "settings": {
+        "heading": "",
+        "open_first": false,
+        "narrow": false
+      }
+    }
+  },
+  "order": [
+    "main",
+    "details"
+  ]
+}

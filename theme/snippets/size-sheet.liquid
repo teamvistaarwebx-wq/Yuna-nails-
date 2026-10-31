@@ -1,0 +1,28 @@
+{%- comment -%}
+  Bottom sheet used by quick add (sizes + add) and by every "Size chart" link (chart only).
+  Rendered once in the layout. assets/theme.js fills in the product.
+{%- endcomment -%}
+<dialog class="overlay overlay--sheet" id="SizeSheet" aria-labelledby="SizeSheetTitle">
+  <div class="sheet__grip" aria-hidden="true"></div>
+  <div class="overlay__header">
+    <h2 class="overlay__title" id="SizeSheetTitle" data-sheet-title>Find your size</h2>
+    <button type="button" class="icon-button" data-close aria-label="Close">{% render 'icon', name: 'close' %}</button>
+  </div>
+  <div class="overlay__body">
+    <form data-sheet-form novalidate>
+      <fieldset class="option-group" data-size-group data-sheet-sizes hidden>
+        <legend class="option-group__legend" style="margin-bottom:8px">{{ settings.size_option_name }}<span data-size-picked></span></legend>
+        <div class="chips" data-sheet-chips></div>
+        <p class="size-later-note" data-size-later-note hidden>{% render 'fact', text: settings.size_later_note %}</p>
+        <p class="field-error" data-size-error role="alert" hidden>{% render 'icon', name: 'info' %}<span>{{ settings.size_required_note }}</span></p>
+      </fieldset>
+      <details class="accordion" data-sheet-chart>
+        <summary>Size chart (mm)</summary>
+        <div class="accordion__body">{% render 'size-chart' %}<p class="small" style="margin-top:12px"><a href="{{ routes.root_url }}pages/size-guide">How to measure</a></p></div>
+      </details>
+    </form>
+  </div>
+  <div class="overlay__footer" data-sheet-footer hidden>
+    <button type="button" class="button button--full" data-sheet-add aria-disabled="true">Add to bag</button>
+  </div>
+</dialog>

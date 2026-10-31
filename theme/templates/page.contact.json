@@ -1,0 +1,14 @@
+{
+  "sections": {
+    "main": {
+      "type": "contact",
+      "settings": {
+        "heading": "We're here to help",
+        "text": "WhatsApp is the quickest way to reach us."
+      }
+    }
+  },
+  "order": [
+    "main"
+  ]
+}

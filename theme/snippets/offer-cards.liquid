@@ -1,0 +1,35 @@
+{%- comment -%} The 1, 2 and 3 set offers as quiet cards, from Theme settings > Offers. - unit (reference price in paise, optional) {%- endcomment -%}
+{%- assign unit = unit | default: 0 -%}
+<div class="tiers">
+  {%- for qty in (1..3) -%}
+    {%- liquid
+      assign enabled = true
+      assign label = settings.bundle_1_label
+      assign benefit = ''
+      case qty
+        when 1
+          assign benefit = 'Hand-painted, made to order'
+        when 2
+          assign enabled = settings.bundle_2_enabled
+          assign label = settings.bundle_2_label
+          assign benefit = settings.bundle_2_benefit
+        when 3
+          assign enabled = settings.bundle_3_enabled
+          assign label = settings.bundle_3_label
+          assign benefit = settings.bundle_3_benefit
+      endcase
+      unless enabled
+        continue
+      endunless
+    -%}
+    {%- capture saving %}{% if qty > 1 %}{% render 'tier-saving', qty: qty, unit: unit %}{% endif %}{% endcapture -%}
+    <div class="tier"><label style="grid-template-columns:1fr auto;cursor:default">
+      <span><span class="tier__name">{{ label }}</span>
+        {%- if benefit != blank -%}<span class="tier__benefit">{{ benefit }}</span>
+        {%- elsif saving != blank -%}<span class="tier__benefit">{{ saving }}</span>
+        {%- elsif qty == 3 -%}<span class="tier__benefit"><mark class="to-confirm">[[TO CONFIRM: 3-set saving]]</mark></span>{%- endif -%}
+      </span>
+      {%- if qty > 1 and benefit != blank and saving != blank -%}<span class="tier__price small">{{ saving }}</span>{%- endif -%}
+    </label></div>
+  {%- endfor -%}
+</div>

@@ -1,0 +1,9 @@
+{
+  "type": "header",
+  "name": "Header group",
+  "sections": {
+    "announcement": { "type": "announcement-bar", "settings": { "text": "Hand-painted and made to order. Dispatch in [dispatch_time].", "link": "" } },
+    "header": { "type": "header", "settings": { "menu": "main-menu" } }
+  },
+  "order": ["announcement", "header"]
+}

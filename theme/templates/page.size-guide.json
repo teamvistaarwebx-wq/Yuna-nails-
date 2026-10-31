@@ -1,0 +1,43 @@
+{
+  "sections": {
+    "main": {
+      "type": "size-guide",
+      "blocks": {
+        "step1": {
+          "type": "step",
+          "settings": {
+            "title": "Measure each nail",
+            "text": "Lay a soft tape or a strip of paper across the widest part of each nail, side to side."
+          }
+        },
+        "step2": {
+          "type": "step",
+          "settings": {
+            "title": "Note it in mm",
+            "text": "Write down all five widths, thumb to little finger."
+          }
+        },
+        "step3": {
+          "type": "step",
+          "settings": {
+            "title": "Match the chart",
+            "text": "Pick the size whose widths are closest to yours."
+          }
+        }
+      },
+      "block_order": [
+        "step1",
+        "step2",
+        "step3"
+      ],
+      "settings": {
+        "heading": "Size guide",
+        "intro": "Four sizes, XS to L. Here's how to find yours.",
+        "exchange": "If a size doesn't fit, tell us within [exchange_window] of delivery and we'll exchange it free."
+      }
+    }
+  },
+  "order": [
+    "main"
+  ]
+}

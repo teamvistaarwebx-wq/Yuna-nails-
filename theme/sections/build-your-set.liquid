@@ -1,0 +1,35 @@
+{%- liquid
+  assign unit = 0
+  if section.settings.collection != blank
+    for p in section.settings.collection.products limit: 50
+      if unit == 0 or p.price_min < unit
+        assign unit = p.price_min
+      endif
+    endfor
+  endif
+-%}
+<div class="section">
+  <div class="page-width two-col">
+    <div class="section__head">
+      <h2 class="h2">{{ section.settings.heading }}</h2>
+      {%- if section.settings.text != blank -%}<p class="muted">{{ section.settings.text }}</p>{%- endif -%}
+    </div>
+    <div>
+      {% render 'offer-cards', unit: unit %}
+      <div class="section__foot"><a class="button button--full" href="{{ section.settings.collection.url | default: routes.all_products_collection_url }}">{{ section.settings.button_label }}</a></div>
+    </div>
+  </div>
+</div>
+{% schema %}
+{
+  "name": "Build your set",
+  "settings": [
+    { "type": "inline_richtext", "id": "heading", "label": "Heading", "default": "Build your <em>set</em>" },
+    { "type": "text", "id": "text", "label": "Text", "default": "Mix any designs. Offers apply in the bag." },
+    { "type": "collection", "id": "collection", "label": "Shop link and reference price" },
+    { "type": "text", "id": "button_label", "label": "Button label", "default": "Choose your sets" },
+    { "type": "paragraph", "content": "Offers come from Theme settings > Offers: bundles." }
+  ],
+  "presets": [ { "name": "Build your set" } ]
+}
+{% endschema %}

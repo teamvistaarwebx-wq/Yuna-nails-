@@ -1,0 +1,64 @@
+{%- comment -%} Gift progress bar. Thresholds and gifts from Theme settings > Offers: gifts. Hidden when none are set. {%- endcomment -%}
+{%- liquid
+  assign total = cart.total_price
+  assign max = 0
+  assign next_threshold = 0
+  assign next_label = ''
+  assign last_unlocked = ''
+  assign marks = ''
+  for i in (1..3)
+    case i
+      when 1
+        assign t = settings.gift_1_threshold
+        assign l = settings.gift_1_label
+      when 2
+        assign t = settings.gift_2_threshold
+        assign l = settings.gift_2_label
+      when 3
+        assign t = settings.gift_3_threshold
+        assign l = settings.gift_3_label
+    endcase
+    if t == blank or t <= 0
+      continue
+    endif
+    assign t_cents = t | times: 100
+    if t_cents > max
+      assign max = t_cents
+    endif
+    assign marks = marks | append: t_cents | append: ','
+    if total >= t_cents
+      assign last_unlocked = l
+    elsif next_threshold == 0 or t_cents < next_threshold
+      assign next_threshold = t_cents
+      assign next_label = l
+    endif
+  endfor
+-%}
+{%- if settings.gift_bar_enabled and max > 0 -%}
+  {%- liquid
+    assign pct = total | times: 100 | divided_by: max
+    if pct > 100
+      assign pct = 100
+    endif
+  -%}
+  <div class="gift-progress">
+    <p class="gift-progress__text">
+      {%- if next_threshold > 0 -%}
+        {%- assign away = next_threshold | minus: total | money_without_trailing_zeros -%}
+        {{ settings.gift_away_text | replace: '[amount]', away | replace: '[gift]', next_label }}
+      {%- else -%}
+        {{ settings.gift_unlocked_text | replace: '[gift]', last_unlocked }}
+      {%- endif -%}
+    </p>
+    <div class="gift-progress__bar" role="progressbar" aria-valuemin="0" aria-valuemax="{{ max | divided_by: 100 }}" aria-valuenow="{{ total | divided_by: 100 }}" aria-label="Progress to free gifts">
+      <div class="gift-progress__fill" style="width: {{ pct }}%"></div>
+      <div class="gift-progress__steps">
+        {%- assign mark_list = marks | split: ',' -%}
+        {%- for m in mark_list -%}
+          {%- assign m_num = m | plus: 0 -%}
+          <span class="gift-progress__step{% if total >= m_num %} is-done{% endif %}" style="left: {{ m_num | times: 100 | divided_by: max }}%"></span>
+        {%- endfor -%}
+      </div>
+    </div>
+  </div>
+{%- endif -%}

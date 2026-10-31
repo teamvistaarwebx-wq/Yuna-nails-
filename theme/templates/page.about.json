@@ -1,0 +1,44 @@
+{
+  "sections": {
+    "founder": {
+      "type": "image-with-text",
+      "settings": {
+        "label": "Founder portrait 4:5",
+        "eyebrow": "Our story",
+        "heading": "A note from <em>Sanprita</em>",
+        "text": "<p>[[TO CONFIRM: Sanprita's founder note, copied from the current site]]</p>",
+        "signature": "Sanprita",
+        "image_right": false,
+        "surface": false
+      }
+    },
+    "artists": {
+      "type": "rich-text",
+      "settings": {
+        "eyebrow": "Hand-painted",
+        "heading": "Painted by <em>our</em> nail artists",
+        "text": "<p>Every set is painted by hand by Yuna's nail artists, one nail at a time. No machines, no prints.</p>",
+        "center": true,
+        "surface": true
+      }
+    },
+    "made": {
+      "type": "image-with-text",
+      "settings": {
+        "label": "Studio photo 4:5",
+        "eyebrow": "Made to order",
+        "heading": "Made for <em>you</em>",
+        "text": "<p>We paint your set after you order, in your size, and dispatch it in [dispatch_time].</p>",
+        "image_right": true,
+        "surface": false,
+        "button_label": "Shop the sets",
+        "button_link": "/collections/all"
+      }
+    }
+  },
+  "order": [
+    "founder",
+    "artists",
+    "made"
+  ]
+}

@@ -1,0 +1,68 @@
+{%- comment -%}
+  1, 2 or 3 sets. Sits above Add to bag. All labels and savings come from Theme settings > Offers.
+  - variant (selected or first available), form_id
+{%- endcomment -%}
+{%- liquid
+  assign unit = variant.price
+  assign uid = form_id | append: '-tier'
+-%}
+<fieldset class="option-group" data-bundle-selector>
+  <legend class="option-group__legend" style="margin-bottom:8px">How many sets</legend>
+  <div class="tiers">
+    {%- for qty in (1..3) -%}
+      {%- liquid
+        assign enabled = true
+        assign label = settings.bundle_1_label
+        assign benefit = ''
+        assign rupees = blank
+        assign percent = blank
+        case qty
+          when 2
+            assign enabled = settings.bundle_2_enabled
+            assign label = settings.bundle_2_label
+            assign benefit = settings.bundle_2_benefit
+            assign rupees = settings.bundle_2_saving_rupees
+            assign percent = settings.bundle_2_saving_percent
+          when 3
+            assign enabled = settings.bundle_3_enabled
+            assign label = settings.bundle_3_label
+            assign benefit = settings.bundle_3_benefit
+            assign rupees = settings.bundle_3_saving_rupees
+            assign percent = settings.bundle_3_saving_percent
+        endcase
+        unless enabled
+          continue
+        endunless
+        assign total = unit | times: qty
+        assign save = 0
+        if rupees != blank
+          assign save = rupees | times: 100
+        elsif percent != blank
+          assign save = total | times: percent | divided_by: 100
+        endif
+        assign final = total | minus: save
+      -%}
+      <div class="tier">
+        <input type="radio" id="{{ uid }}-{{ qty }}" name="{{ uid }}" value="{{ qty }}" form="{{ form_id }}" data-tier data-qty="{{ qty }}" data-save-fixed="{% if rupees != blank %}{{ rupees | times: 100 }}{% endif %}" data-save-percent="{{ percent }}"{% if qty == 1 %} checked{% endif %}>
+        <label for="{{ uid }}-{{ qty }}">
+          <span class="tier__dot" aria-hidden="true"></span>
+          <span>
+            <span class="tier__name">{{ label }}</span>
+            {%- capture saving %}{% if qty > 1 %}{% render 'tier-saving', qty: qty, unit: unit %}{% endif %}{% endcapture -%}
+            {%- if benefit != blank -%}
+              <span class="tier__benefit">{{ benefit }}{% if saving != blank %} · {{ saving }}{% endif %}</span>
+            {%- elsif saving != blank -%}
+              <span class="tier__benefit" data-tier-saving>{{ saving }}</span>
+            {%- elsif qty == 3 -%}
+              <span class="tier__benefit"><mark class="to-confirm">[[TO CONFIRM: 3-set saving]]</mark></span>
+            {%- endif -%}
+          </span>
+          <span class="tier__price" data-tier-price>
+            {{- final | money_without_trailing_zeros -}}
+            {%- if save > 0 %}<s>{{ total | money_without_trailing_zeros }}</s>{% endif -%}
+          </span>
+        </label>
+      </div>
+    {%- endfor -%}
+  </div>
+</fieldset>

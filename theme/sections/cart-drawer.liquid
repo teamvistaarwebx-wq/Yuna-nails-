@@ -1,0 +1,93 @@
+{%- comment -%}
+  Bag contents. Rendered inside the #CartDrawer dialog and re-rendered after every change (Section Rendering API).
+  Order: gift progress, lines, bundle nudge, add-ons, savings, delivery and COD, one checkout button.
+{%- endcomment -%}
+{%- liquid
+  assign kit_id = settings.kit_product.id
+  assign remover_id = settings.remover_product.id
+  assign sets = 0
+  assign has_remover = false
+  for item in cart.items
+    if item.product_id == remover_id
+      assign has_remover = true
+      continue
+    endif
+    if item.product_id == kit_id or item.final_line_price == 0
+      continue
+    endif
+    assign sets = sets | plus: item.quantity
+  endfor
+-%}
+<span hidden data-cart-count-value="{{ cart.item_count }}"></span>
+<div class="overlay__header">
+  <h2 class="overlay__title">Your bag{% if cart.item_count > 0 %} ({{ cart.item_count }}){% endif %}</h2>
+  <button type="button" class="icon-button" data-close aria-label="Close bag">{% render 'icon', name: 'close' %}</button>
+</div>
+<div class="overlay__body">
+  {%- if cart.item_count == 0 -%}
+    <div class="cart-empty stack">
+      <p class="h3">Your bag is empty</p>
+      <p class="muted">Start with our most-loved sets.</p>
+      <a class="button" href="{{ settings.bestsellers_collection.url | default: routes.all_products_collection_url }}">Shop bestsellers</a>
+    </div>
+    <div class="addons">
+      <p class="addons__title">Coming next</p>
+      {% render 'addon-card', type: 'kit' %}
+    </div>
+  {%- else -%}
+    {% render 'gift-progress' %}
+    <form action="{{ routes.cart_url }}" method="post" id="CartDrawerForm" novalidate>
+      <ul class="cart-lines">
+        {%- for item in cart.items -%}{% render 'cart-line', item: item, index: forloop.index %}{%- endfor -%}
+      </ul>
+    </form>
+    {%- if sets == 1 and settings.bundle_2_enabled and settings.nudge_one_set != blank -%}
+      <p class="nudge">{{ settings.nudge_one_set }}</p>
+    {%- elsif sets == 2 and settings.bundle_3_enabled and settings.nudge_two_sets != blank -%}
+      {%- liquid
+        assign first_set_price = 0
+        for item in cart.items
+          if item.product_id != kit_id and item.product_id != remover_id and item.final_line_price > 0
+            assign first_set_price = item.variant.price
+            break
+          endif
+        endfor
+        capture saving
+          render 'tier-saving', qty: 3, unit: first_set_price
+        endcapture
+        assign saving = saving | strip | remove: 'Save '
+        if saving == blank
+          assign saving = '<mark class="to-confirm">[[TO CONFIRM: 3-set saving]]</mark>'
+        endif
+      -%}
+      <p class="nudge">{{ settings.nudge_two_sets | replace: '[saving]', saving }}</p>
+    {%- endif -%}
+    <div class="addons">
+      {%- capture addon_html -%}
+        {%- unless has_remover -%}{% render 'addon-card', type: 'remover' %}{%- endunless -%}
+        {% render 'addon-card', type: 'kit' %}
+      {%- endcapture -%}
+      {%- if addon_html != blank -%}
+        <p class="addons__title">Add to your order</p>
+        {{ addon_html }}
+      {%- endif -%}
+    </div>
+  {%- endif -%}
+</div>
+{%- if cart.item_count > 0 -%}
+  <div class="overlay__footer">
+    <div class="cart-summary">
+      {%- if cart.total_discount > 0 -%}
+        <div class="cart-summary__row cart-summary__save"><span>You save</span><span>{{ cart.total_discount | money_without_trailing_zeros }}</span></div>
+      {%- endif -%}
+      <div class="cart-summary__row"><span>Delivery</span><span>{% render 'fact', text: '[delivery]' %}</span></div>
+      <div class="cart-summary__row muted"><span>Cash on delivery</span><span>Rs {% render 'fact', text: '[cod_fee]' %} fee</span></div>
+    </div>
+    <button type="submit" name="checkout" form="CartDrawerForm" class="button button--full">
+      Checkout · {{ cart.total_price | money_without_trailing_zeros }}
+    </button>
+  </div>
+{%- endif -%}
+{% schema %}
+{ "name": "Cart drawer", "settings": [] }
+{% endschema %}

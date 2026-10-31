@@ -1,0 +1,154 @@
+{%- comment -%}
+  Phase 2: every component in every state, on one page. Assign the "components" page template to a hidden page to review.
+{%- endcomment -%}
+{%- assign p = section.settings.product -%}
+<div class="page-width section">
+  <h1 class="h1">Components</h1>
+  <p class="muted">Every colour, font, radius and space below comes from Theme settings. Change a token there and this page changes.</p>
+
+  <div class="preview-block">
+    <p class="preview-block__label">Tokens: colours</p>
+    <div class="preview-row">
+      {%- assign swatches = 'burgundy,cream,olive-gold,soft-blue' | split: ',' -%}
+      {%- for s in swatches -%}
+        <div class="swatch"><div class="swatch__chip" style="background: var(--color-{{ s }})"></div><p class="tiny">--color-{{ s }}</p></div>
+      {%- endfor -%}
+      <div class="swatch"><div class="swatch__chip" style="background: var(--color-surface)"></div><p class="tiny">surface (derived)</p></div>
+      <div class="swatch"><div class="swatch__chip" style="background: var(--color-info)"></div><p class="tiny">info (derived)</p></div>
+      <div class="swatch"><div class="swatch__chip" style="background: var(--color-line)"></div><p class="tiny">line (derived)</p></div>
+    </div>
+  </div>
+
+  <div class="preview-block">
+    <p class="preview-block__label">Tokens: type</p>
+    <p class="h1">Salon nails, <em>at home</em></p>
+    <p class="h2">Build your set</p>
+    <p class="h3">What's in the box</p>
+    <p class="eyebrow">Most loved</p>
+    <p class="lead">Hand-painted press-ons, made to order for your size.</p>
+    <p>Body text in Urbanist. Calm, warm, specific. <span class="price">Rs 1,299</span></p>
+  </div>
+
+  <div class="preview-block">
+    <p class="preview-block__label">Buttons: primary, secondary, small, inactive (no size yet), loading</p>
+    <div class="preview-row">
+      <a class="button" href="#">Add to bag</a>
+      <a class="button button--secondary" href="#">Buy now</a>
+      <a class="button button--small button--secondary" href="#">Quick add</a>
+      <button type="button" class="button" aria-disabled="true">Add to bag</button>
+      <button type="button" class="button is-loading">Add to bag</button>
+      <button type="button" class="link">Size chart</button>
+    </div>
+  </div>
+
+  <div class="preview-block">
+    <p class="preview-block__label">Announcement bar</p>
+    <div class="announcement">{% render 'fact', text: 'Hand-painted and made to order. Dispatch in [dispatch_time].' %}</div>
+  </div>
+
+  <div class="preview-block two-col">
+    <div>
+      <p class="preview-block__label">Size selector: nothing selected (default)</p>
+      {%- capture chips -%}{%- assign sizes = settings.sizes | split: ',' -%}{%- for s in sizes -%}<div class="chip"><input type="radio" name="NAME" id="NAME-{{ forloop.index }}"CHECK{{ forloop.index }}><label for="NAME-{{ forloop.index }}">{{ s | strip }}</label></div>{%- endfor -%}{%- endcapture -%}
+      <fieldset class="option-group"><legend class="option-group__legend">Size</legend><div class="chips" style="margin-top:8px">{{ chips | replace: 'NAME', 'pv-a' | replace: 'CHECK3', '' | remove: 'CHECK1' | remove: 'CHECK2' | remove: 'CHECK4' }}<div class="chip chip--wide"><input type="radio" name="pv-a" id="pv-a-l"><label for="pv-a-l">{{ settings.size_later_label }}</label></div></div></fieldset>
+      <p class="preview-block__label">Size picked (M)</p>
+      <fieldset class="option-group"><legend class="option-group__legend">Size <span>: M</span></legend><div class="chips" style="margin-top:8px">{{ chips | replace: 'NAME', 'pv-b' | replace: 'CHECK3', ' checked' | remove: 'CHECK1' | remove: 'CHECK2' | remove: 'CHECK4' }}<div class="chip chip--wide"><input type="radio" name="pv-b" id="pv-b-l"><label for="pv-b-l">{{ settings.size_later_label }}</label></div></div></fieldset>
+    </div>
+    <div>
+      <p class="preview-block__label">Size me later picked</p>
+      <fieldset class="option-group"><legend class="option-group__legend">Size <span>: to confirm on WhatsApp</span></legend><div class="chips" style="margin-top:8px">{{ chips | replace: 'NAME', 'pv-c' | remove: 'CHECK1' | remove: 'CHECK2' | remove: 'CHECK3' | remove: 'CHECK4' }}<div class="chip chip--wide"><input type="radio" name="pv-c" id="pv-c-l" checked><label for="pv-c-l">{{ settings.size_later_label }}</label></div></div>
+        <p class="size-later-note">{% render 'fact', text: settings.size_later_note %}</p></fieldset>
+      <p class="preview-block__label">Error: tapped Add to bag without a size</p>
+      <fieldset class="option-group has-error"><legend class="option-group__legend">Size</legend><div class="chips" style="margin-top:8px">{{ chips | replace: 'NAME', 'pv-d' | remove: 'CHECK1' | remove: 'CHECK2' | remove: 'CHECK3' | remove: 'CHECK4' }}<div class="chip chip--wide"><input type="radio" name="pv-d" id="pv-d-l"><label for="pv-d-l">{{ settings.size_later_label }}</label></div></div>
+        <p class="field-error" role="alert">{% render 'icon', name: 'info' %}<span>{{ settings.size_required_note }}</span></p></fieldset>
+    </div>
+  </div>
+
+  <div class="preview-block two-col">
+    <div>
+      <p class="preview-block__label">Bundle selector (above Add to bag)</p>
+      {%- if p != blank -%}
+        {% render 'bundle-selector', variant: p.selected_or_first_available_variant, form_id: 'PreviewForm' %}
+      {%- else -%}
+        <p class="small muted">Pick a product in this section's settings to preview with real prices.</p>
+      {%- endif -%}
+    </div>
+    <div>
+      <p class="preview-block__label">Offer cards (home, landing)</p>
+      {% render 'offer-cards', unit: p.price %}
+    </div>
+  </div>
+
+  <div class="preview-block">
+    <p class="preview-block__label">Product card with quick add</p>
+    <div class="grid">
+      {%- if p != blank -%}
+        {% render 'product-card', product: p %}
+        {%- for other in section.settings.collection.products limit: 3 -%}{% render 'product-card', product: other %}{%- endfor -%}
+      {%- else -%}
+        <div class="card"><div class="media media--portrait">{{ 'product-1' | placeholder_svg_tag: 'placeholder-svg' }}<span class="media__label">Hand photo 4:5</span></div><div class="card__body"><p class="card__title">Pick a product in settings</p></div></div>
+      {%- endif -%}
+    </div>
+    <p style="margin-top:16px"><button type="button" class="button button--secondary" data-open-size-chart>Open the size sheet (chart mode)</button></p>
+  </div>
+
+  <div class="preview-block two-col">
+    <div>
+      <p class="preview-block__label">Gift progress: start, halfway, unlocked</p>
+      {%- assign max = settings.gift_3_threshold | default: settings.gift_2_threshold | default: settings.gift_1_threshold -%}
+      {%- if max == blank -%}<p class="small"><mark class="to-confirm">[[TO CONFIRM: gift thresholds and gifts]]</mark> Showing a sample bar.</p>{%- endif -%}
+      {%- for pct in (0..2) -%}
+        {%- assign w = pct | times: 50 -%}
+        <div class="gift-progress">
+          <p class="gift-progress__text">{% if w == 100 %}{{ settings.gift_unlocked_text | replace: '[gift]', 'Free gift' }}{% else %}{{ settings.gift_away_text | replace: '[amount]', 'Rs 500' | replace: '[gift]', 'a free gift' }}{% endif %}</p>
+          <div class="gift-progress__bar"><div class="gift-progress__fill" style="width: {{ w }}%"></div><div class="gift-progress__steps"><span class="gift-progress__step{% if w >= 50 %} is-done{% endif %}" style="left:50%"></span><span class="gift-progress__step{% if w >= 100 %} is-done{% endif %}" style="left:100%"></span></div></div>
+        </div>
+      {%- endfor -%}
+    </div>
+    <div>
+      <p class="preview-block__label">Cart lines: sized, and size to confirm</p>
+      <ul class="cart-lines">
+        <li class="cart-line"><div class="media cart-line__media"></div><div><span class="cart-line__title">Design name</span><p class="cart-line__meta">Size: M</p><div class="qty"><button type="button">−</button><input type="number" value="1" aria-label="Quantity"><button type="button">+</button></div></div><div class="cart-line__end"><span class="price">Rs 1,299</span><span class="cart-line__remove">Remove</span></div></li>
+        <li class="cart-line"><div class="media cart-line__media"></div><div><span class="cart-line__title">Design name</span><p class="cart-line__meta cart-line__meta--flag">Size to confirm on WhatsApp</p><div class="qty"><button type="button">−</button><input type="number" value="1" aria-label="Quantity"><button type="button">+</button></div></div><div class="cart-line__end"><span class="price">Rs 1,299</span><span class="cart-line__remove">Remove</span></div></li>
+      </ul>
+      <p class="nudge">{{ settings.nudge_one_set }}</p>
+      <div class="cart-summary"><div class="cart-summary__row cart-summary__save"><span>You save</span><span>Rs 300</span></div><div class="cart-summary__row"><span>Delivery</span><span>{% render 'fact', text: '[delivery]' %}</span></div></div>
+    </div>
+  </div>
+
+  <div class="preview-block two-col">
+    <div>
+      <p class="preview-block__label">Add-on cards: kit (follows the coming-soon switch), glue remover (hidden until the product is set)</p>
+      {% render 'addon-card', type: 'kit' %}
+      {% render 'addon-card', type: 'remover' %}
+      {%- if settings.remover_product == blank -%}<p class="tiny muted" style="margin-top:8px">Glue remover hidden: no product set yet.</p>{%- endif -%}
+    </div>
+    <div>
+      <p class="preview-block__label">Review tile and customer reel</p>
+      <div class="grid" style="grid-template-columns:1fr 1fr">
+        {% render 'ugc-tile', caption: 'Customer reel' %}
+        {% render 'review-tile', quote: '[[Paste a real Judge.me review here]]', name: 'Customer name', source: 'Judge.me', stars: 5 %}
+      </div>
+    </div>
+  </div>
+
+  <div class="preview-block">
+    <p class="preview-block__label">Nail care kit block ({% if settings.kit_coming_soon %}coming soon{% else %}launched{% endif %})</p>
+    {% render 'kit-block', form_id: 'KitNotifyPreview' %}
+  </div>
+
+  <div class="preview-block">
+    <p class="preview-block__label">Accordion with safety notes</p>
+    <details class="accordion" open><summary>Safety notes</summary><div class="accordion__body"><div class="note rte">{{ settings.safety_notes }}</div></div></details>
+  </div>
+</div>
+{% schema %}
+{
+  "name": "Component preview",
+  "settings": [
+    { "type": "product", "id": "product", "label": "Product to preview with" },
+    { "type": "collection", "id": "collection", "label": "More cards from" }
+  ],
+  "presets": [ { "name": "Component preview" } ]
+}
+{% endschema %}

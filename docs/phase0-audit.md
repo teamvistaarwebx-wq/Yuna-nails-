@@ -30,7 +30,7 @@ npm run theme:list
 npm run theme:pull
 ```
 
-`theme:pull` reads the live theme into `theme/` and changes nothing on the store. It gets committed as the untouched baseline. The unpublished duplicate is created in Phase 3, not now.
+`theme:pull` reads the live theme into `live-theme/` (a reference copy for the audit and for moving app settings across) and changes nothing on the store. The new theme lives in `theme/`. It gets committed as the untouched baseline. The unpublished duplicate is created in Phase 3, not now.
 
 ### 2. Templates, sections, snippets, apps (with weights)
 

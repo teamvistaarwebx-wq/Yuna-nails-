@@ -1,0 +1,42 @@
+{%- comment -%}
+  Size selector with no size pre-selected, plus "Size me later".
+  Other options (if any) are listed too, with their first value selected.
+  - product, form_id
+{%- endcomment -%}
+{%- liquid
+  assign size_name = settings.size_option_name | downcase | strip
+  assign later_value = settings.size_later_variant | strip
+  assign uid = form_id | append: '-opt'
+-%}
+{%- for option in product.options_with_values -%}
+  {%- assign is_size = false -%}
+  {%- assign this_name = option.name | downcase | strip -%}
+  {%- if this_name == size_name -%}{%- assign is_size = true -%}{%- endif -%}
+  <fieldset class="option-group" data-option-group data-option-index="{{ forloop.index0 }}"{% if is_size %} data-size-group{% endif %}>
+    <div class="option-group__head">
+      <legend class="option-group__legend">{{ option.name }}{% if is_size %}<span data-size-picked></span>{% endif %}</legend>
+      {%- if is_size -%}
+        <button type="button" class="link small" data-open-size-chart aria-haspopup="dialog">Size chart</button>
+      {%- endif -%}
+    </div>
+    <div class="chips">
+      {%- for value in option.values -%}
+        {%- if is_size and value == later_value -%}{%- continue -%}{%- endif -%}
+        <div class="chip">
+          <input type="radio" id="{{ uid }}-{{ option.position }}-{{ forloop.index }}" name="{{ uid }}-{{ option.position }}" value="{{ value | escape }}" form="{{ form_id }}"{% unless is_size %}{% if forloop.first %} checked{% endif %}{% endunless %}>
+          <label for="{{ uid }}-{{ option.position }}-{{ forloop.index }}">{{ value }}</label>
+        </div>
+      {%- endfor -%}
+      {%- if is_size -%}
+        <div class="chip chip--wide">
+          <input type="radio" id="{{ uid }}-later" name="{{ uid }}-{{ option.position }}" value="__later" form="{{ form_id }}" data-size-later>
+          <label for="{{ uid }}-later">{{ settings.size_later_label }}</label>
+        </div>
+      {%- endif -%}
+    </div>
+    {%- if is_size -%}
+      <p class="size-later-note" data-size-later-note hidden>{% render 'fact', text: settings.size_later_note %}</p>
+      <p class="field-error" data-size-error role="alert" hidden>{% render 'icon', name: 'info' %}<span>{{ settings.size_required_note }}</span></p>
+    {%- endif -%}
+  </fieldset>
+{%- endfor -%}

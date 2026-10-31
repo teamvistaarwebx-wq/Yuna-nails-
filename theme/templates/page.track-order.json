@@ -1,0 +1,16 @@
+{
+  "sections": {
+    "main": {
+      "type": "track-order",
+      "blocks": {},
+      "block_order": [],
+      "settings": {
+        "heading": "Track your order",
+        "text": "Each set is made to order and dispatched in [dispatch_time]. You'll get tracking details by SMS and email."
+      }
+    }
+  },
+  "order": [
+    "main"
+  ]
+}

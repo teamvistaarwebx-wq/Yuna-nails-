@@ -1,0 +1,49 @@
+{%- comment -%}
+  Product card: hand photo first, name, shape and length, price, rating, at most one quiet offer line, Quick add.
+  - product, priority (bool), sizes
+{%- endcomment -%}
+{%- liquid
+  assign first = product.media[0]
+  assign second = product.media[1]
+  assign shape = product.metafields.custom.shape.value
+  assign length = product.metafields.custom.length.value
+  assign loading = 'lazy'
+  if priority
+    assign loading = 'eager'
+  endif
+  assign card_alt = first.alt | default: product.title
+  assign card_sizes = sizes | default: '(min-width: 990px) 22vw, (min-width: 750px) 30vw, 46vw'
+-%}
+<article class="card" data-product-card>
+  <a class="card__link" href="{{ product.url }}">
+    <div class="media media--portrait card__media">
+      {%- if first -%}
+        {{ first.preview_image | image_url: width: 900 | image_tag: widths: '240, 360, 480, 640, 900', sizes: card_sizes, loading: loading, alt: card_alt }}
+        {%- if second -%}
+          {{ second.preview_image | image_url: width: 900 | image_tag: widths: '360, 640, 900', sizes: card_sizes, loading: 'lazy', alt: '', class: 'media__second' }}
+        {%- endif -%}
+      {%- else -%}
+        {{ 'product-1' | placeholder_svg_tag: 'placeholder-svg' }}<span class="media__label">Hand photo 4:5</span>
+      {%- endif -%}
+    </div>
+  </a>
+  <div class="card__body">
+    <h3 class="card__title"><a href="{{ product.url }}" class="card__title-link">{{ product.title }}</a></h3>
+    {%- if shape != blank or length != blank -%}
+      <p class="card__meta">{{ shape }}{% if shape != blank and length != blank %} · {% endif %}{{ length }}</p>
+    {%- endif -%}
+    <div class="card__row">
+      {% render 'price', product: product %}
+      {% render 'rating', product: product %}
+    </div>
+    {%- if settings.card_offer_line != blank -%}
+      <p class="card__offer">{{ settings.card_offer_line }}</p>
+    {%- endif -%}
+  </div>
+  {%- if product.available -%}
+    <button type="button" class="button button--secondary button--small button--full card__quick" data-quick-add aria-haspopup="dialog">
+      Quick add<span class="visually-hidden">: {{ product.title }}</span>
+    </button>
+    {% render 'product-json', product: product %}
+  {%- endif -%}
+</article>

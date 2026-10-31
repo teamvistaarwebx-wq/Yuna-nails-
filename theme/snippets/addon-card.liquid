@@ -1,0 +1,39 @@
+{%- comment -%}
+  Add-on card for the bag: the nail care kit ("coming soon" until launch) or the glue remover.
+  - type: 'kit' | 'remover'
+{%- endcomment -%}
+{%- if type == 'kit' -%}
+  {%- liquid
+    assign kit = settings.kit_product
+    assign kit_url = kit.url | default: '/products/nail-care-kit'
+    assign kit_img = settings.kit_image | default: kit.featured_media.preview_image
+  -%}
+  <div class="addon-card">
+    <div class="media">{% if kit_img %}{{ kit_img | image_url: width: 160 | image_tag: loading: 'lazy', alt: '' }}{% endif %}</div>
+    <div>
+      <p class="addon-card__title">{{ settings.kit_name }}</p>
+      {%- if settings.kit_coming_soon -%}
+        <p class="addon-card__meta">Coming soon</p>
+      {%- elsif kit -%}
+        <p class="addon-card__meta">{% render 'price', product: kit %}</p>
+      {%- endif -%}
+    </div>
+    {%- if settings.kit_coming_soon -%}
+      <a class="button button--secondary button--small" href="{{ kit_url }}#notify">Notify me</a>
+    {%- elsif kit and kit.available -%}
+      <button type="button" class="button button--secondary button--small" data-add-variant="{{ kit.selected_or_first_available_variant.id }}">Add</button>
+    {%- endif -%}
+  </div>
+{%- elsif type == 'remover' -%}
+  {%- assign remover = settings.remover_product -%}
+  {%- if remover and remover.available -%}
+    <div class="addon-card">
+      <div class="media">{% if remover.featured_media %}{{ remover.featured_media.preview_image | image_url: width: 160 | image_tag: loading: 'lazy', alt: '' }}{% endif %}</div>
+      <div>
+        <p class="addon-card__title">{{ remover.title }}</p>
+        <p class="addon-card__meta">{% render 'price', product: remover %}</p>
+      </div>
+      <button type="button" class="button button--secondary button--small" data-add-variant="{{ remover.selected_or_first_available_variant.id }}">Add</button>
+    </div>
+  {%- endif -%}
+{%- endif -%}

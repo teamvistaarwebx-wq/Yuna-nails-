@@ -1,0 +1,12 @@
+<div class="page-width section">
+  <h1 class="h1">Collections</h1>
+  <div class="grid">
+    {%- for c in collections -%}
+      {%- if c.handle == 'frontpage' -%}{%- continue -%}{%- endif -%}
+      <a class="mood" href="{{ c.url }}">{% render 'media', image: c.featured_image, ratio: 'portrait', sizes: '(min-width: 990px) 22vw, 46vw' %}<span class="mood__title">{{ c.title }}<span aria-hidden="true">→</span></span></a>
+    {%- endfor -%}
+  </div>
+</div>
+{% schema %}
+{ "name": "Collections list", "settings": [] }
+{% endschema %}

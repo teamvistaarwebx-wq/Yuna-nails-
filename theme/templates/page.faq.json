@@ -1,0 +1,118 @@
+{
+  "sections": {
+    "main": {
+      "type": "faq",
+      "blocks": {
+        "b1": {
+          "type": "group",
+          "settings": {
+            "title": "Orders and delivery"
+          }
+        },
+        "b2": {
+          "type": "question",
+          "settings": {
+            "question": "When will my order ship?",
+            "answer": "<p>Every set is hand-painted to order and dispatched in [dispatch_time].</p>"
+          }
+        },
+        "b3": {
+          "type": "question",
+          "settings": {
+            "question": "Do you offer cash on delivery?",
+            "answer": "<p>Yes. COD has a fee of Rs [cod_fee]. UPI is also available.</p>"
+          }
+        },
+        "b4": {
+          "type": "question",
+          "settings": {
+            "question": "Is delivery free?",
+            "answer": "<p>[delivery]</p>"
+          }
+        },
+        "b5": {
+          "type": "group",
+          "settings": {
+            "title": "Size and fit"
+          }
+        },
+        "b6": {
+          "type": "question",
+          "settings": {
+            "question": "How do I find my size?",
+            "answer": "<p>Use the size chart on any product, or pick Size me later. [between_sizes]</p>"
+          }
+        },
+        "b7": {
+          "type": "question",
+          "settings": {
+            "question": "What does Size me later mean?",
+            "answer": "<p>After your order, we'll message you on WhatsApp. Send a photo of your hand next to a coin or card, and we'll confirm your size within [size_confirm_hours] hours. Your order waits until then.</p>"
+          }
+        },
+        "b8": {
+          "type": "question",
+          "settings": {
+            "question": "What if a size doesn't fit?",
+            "answer": "<p>Exchange it free within [exchange_window].</p>"
+          }
+        },
+        "b9": {
+          "type": "group",
+          "settings": {
+            "title": "Wearing them"
+          }
+        },
+        "b10": {
+          "type": "question",
+          "settings": {
+            "question": "How long does it take to apply?",
+            "answer": "<p>About [apply_minutes] minutes.</p>"
+          }
+        },
+        "b11": {
+          "type": "question",
+          "settings": {
+            "question": "Can I reuse them?",
+            "answer": "<p>Yes, for about [wear_count] wears with gentle removal.</p>"
+          }
+        },
+        "b12": {
+          "type": "question",
+          "settings": {
+            "question": "What's in the box?",
+            "answer": "<p>[nails_per_set] hand-painted nails and nail glue.</p>"
+          }
+        },
+        "b13": {
+          "type": "question",
+          "settings": {
+            "question": "How do I remove them safely?",
+            "answer": "<p>Soak in warm soapy water, then gently lift from the side. Never pull. Don't apply on broken or infected nails, and keep glue away from eyes and skin.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "b1",
+        "b2",
+        "b3",
+        "b4",
+        "b5",
+        "b6",
+        "b7",
+        "b8",
+        "b9",
+        "b10",
+        "b11",
+        "b12",
+        "b13"
+      ],
+      "settings": {
+        "heading": "Questions"
+      }
+    }
+  },
+  "order": [
+    "main"
+  ]
+}

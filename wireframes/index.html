@@ -1,0 +1,152 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Yuna wireframes</title>
+<style>
+  :root { --ink:#222; --mid:#777; --line:#bbb; --fill:#e4e4e4; --fill2:#cfcfcf; --bg:#f6f6f6; }
+  * { box-sizing: border-box; }
+  body { margin:0; font:14px/1.45 system-ui, sans-serif; color:var(--ink); background:var(--bg); }
+  header.top { padding:24px 16px; max-width:1300px; margin:auto; }
+  h1 { font-size:22px; margin:0 0 4px; } h2 { font-size:18px; margin:40px 0 4px; } p.note { color:var(--mid); margin:0 0 16px; max-width:760px; }
+  main { max-width:1300px; margin:auto; padding:0 16px 64px; }
+  .row { display:flex; gap:24px; overflow-x:auto; padding-bottom:12px; align-items:flex-start; }
+  .opt { flex:0 0 375px; }
+  .opt h3 { font-size:14px; margin:0 0 6px; } .opt h3 b { background:#222; color:#fff; padding:1px 6px; border-radius:4px; margin-right:6px; }
+  .opt .why { color:var(--mid); font-size:12px; margin:8px 0 0; }
+  .rec h3::after { content:"Recommended, built"; margin-left:8px; font-size:11px; border:1px solid #222; padding:1px 6px; border-radius:10px; }
+  .phone { width:375px; background:#fff; border:1px solid var(--line); border-radius:8px; overflow:hidden; position:relative; }
+  .ph { background:var(--fill); display:flex; align-items:center; justify-content:center; color:var(--mid); font-size:12px; text-align:center; }
+  .bar { height:36px; border-bottom:1px solid var(--line); display:flex; align-items:center; justify-content:space-between; padding:0 12px; font-size:12px; }
+  .ann { height:28px; background:var(--fill); font-size:11px; display:flex; align-items:center; justify-content:center; }
+  .pad { padding:16px; } .pad > * + * { margin-top:10px; }
+  .t1 { height:22px; background:var(--fill2); width:80%; border-radius:3px; } .t2 { height:12px; background:var(--fill); width:60%; border-radius:3px; } .t3 { height:10px; background:var(--fill); width:90%; border-radius:3px; }
+  .btn { height:48px; border-radius:8px; background:#333; color:#fff; display:flex; align-items:center; justify-content:center; font-size:13px; }
+  .btn.o { background:#fff; color:#333; border:1px solid #333; } .btn.dis { background:#999; }
+  .chips { display:flex; gap:8px; flex-wrap:wrap; } .chip { min-width:52px; height:44px; border:1px solid var(--line); border-radius:8px; display:flex; align-items:center; justify-content:center; font-size:12px; padding:0 10px; } .chip.wide { flex:1 1 100%; justify-content:flex-start; }
+  .tier { border:1px solid var(--line); border-radius:8px; padding:10px 12px; display:flex; justify-content:space-between; font-size:12px; } .tier.sel { border:2px solid #333; }
+  .grid2 { display:grid; grid-template-columns:1fr 1fr; gap:10px; }
+  .card .ph { aspect-ratio:4/5; border-radius:8px; } .card .t2 { margin-top:6px; } .card .btn { height:40px; margin-top:6px; font-size:12px; }
+  .small { font-size:11px; color:var(--mid); }
+  .sheet { position:absolute; left:0; right:0; bottom:0; background:#fff; border-top:1px solid #333; border-radius:12px 12px 0 0; padding:16px; } .sheet > * + * { margin-top:10px; }
+  .scrim { position:absolute; inset:0; background:rgba(0,0,0,.25); }
+  .progress { height:6px; background:var(--fill); border-radius:3px; } .progress i { display:block; height:100%; width:55%; background:#333; border-radius:3px; }
+  .line { display:flex; gap:10px; } .line .ph { width:64px; height:80px; border-radius:6px; flex:none; } .line .grow { flex:1; } .line .grow > * + * { margin-top:6px; }
+  .info { background:var(--fill); border-radius:8px; padding:10px 12px; font-size:12px; }
+  .hr { border-top:1px solid var(--line); }
+  .sticky { position:sticky; bottom:0; background:#fff; border-top:1px solid var(--line); padding:10px 16px; display:flex; gap:8px; } .sticky .btn { flex:1; }
+  .lbl { font-size:11px; color:var(--mid); text-transform:uppercase; letter-spacing:.06em; }
+  ol.steps { padding-left:18px; margin:0; font-size:12px; } ol.steps li + li { margin-top:4px; }
+</style>
+</head>
+<body>
+<header class="top">
+  <h1>Yuna Nails: grey wireframes, 375 px</h1>
+  <p class="note">Phase 1. Greyscale on purpose: no colour, no final photos, no polish. Each row compares options. The option marked "Recommended, built" is the one used in the theme build; the others can be swapped in from the theme editor or with a small change.</p>
+</header>
+<main>
+
+<h2>1. Ad landing: hook (screen 1)</h2>
+<p class="note">She arrives from a reel inside Instagram. The first screen has to show real hands, the price and one clear action, and load fast.</p>
+<div class="row">
+  <div class="opt rec"><h3><b>A</b>Full-bleed hand video, text below</h3>
+    <div class="phone"><div class="ann">One quiet message</div><div class="bar"><span>☰</span><b>YN</b><span>⌕ 🛍</span></div>
+      <div class="ph" style="aspect-ratio:4/5">Hand video 4:5<br>(poster image loads first)</div>
+      <div class="pad"><div class="t1"></div><div class="t2"></div><div class="small">From Rs 999 · hand-painted · made to order · dispatch 24–48 h · COD</div><div class="btn">Shop the sets</div></div></div>
+    <p class="why">Photo carries the look, text stays readable on any photo, poster is the LCP. Closest to the reel she just watched.</p></div>
+  <div class="opt"><h3><b>B</b>Text over video</h3>
+    <div class="phone"><div class="ann">One quiet message</div><div class="bar"><span>☰</span><b>YN</b><span>⌕ 🛍</span></div>
+      <div class="ph" style="aspect-ratio:9/14;align-items:flex-end;padding:16px"><div style="width:100%"><div class="t1" style="background:#aaa"></div><div class="btn" style="margin-top:10px">Shop the sets</div></div></div></div>
+    <p class="why">Most immersive, but text contrast depends on each new video, and the trust line gets squeezed.</p></div>
+  <div class="opt"><h3><b>C</b>Split: product grid first</h3>
+    <div class="phone"><div class="ann">One quiet message</div><div class="bar"><span>☰</span><b>YN</b><span>⌕ 🛍</span></div>
+      <div class="pad"><div class="t1"></div><div class="small">From Rs 999 · dispatch 24–48 h · COD</div></div>
+      <div class="pad grid2" style="padding-top:0"><div class="card"><div class="ph">Hand</div></div><div class="card"><div class="ph">Hand</div></div></div></div>
+    <p class="why">Fastest to products, but loses the emotional hook the ad set up.</p></div>
+</div>
+
+<h2>2. Ad landing: choose and proof (screens 2 and 3)</h2>
+<div class="row">
+  <div class="opt rec"><h3><b>A</b>Choose</h3>
+    <div class="phone"><div class="pad"><div class="lbl">Shop by mood</div>
+      <div class="grid2"><div class="card"><div class="ph">Mood 4:5</div><div class="t2"></div></div><div class="card"><div class="ph">Mood 4:5</div><div class="t2"></div></div></div>
+      <div class="lbl">Build your set</div><div class="tier">1 set<span>from price</span></div><div class="tier">2 sets<span>free glue remover</span></div><div class="tier">3 sets<span>save Rs [X]</span></div>
+      <div class="info">Nail care kit · coming soon · notify me</div></div></div></div>
+  <div class="opt rec"><h3><b>A</b>Proof</h3>
+    <div class="phone"><div class="pad"><div class="lbl">Real hands</div>
+      <div style="display:flex;gap:8px"><div class="ph" style="width:110px;aspect-ratio:9/16;border-radius:8px">Reel 9:16</div><div class="ph" style="width:110px;aspect-ratio:9/16;border-radius:8px">Reel</div><div class="ph" style="width:110px;aspect-ratio:9/16;border-radius:8px">Reel</div></div>
+      <div class="lbl">How to apply</div><ol class="steps"><li>Prep</li><li>Glue</li><li>Press</li></ol>
+      <div class="info">★★★★★ one real Judge.me review</div><div class="btn">Shop the sets</div></div></div></div>
+</div>
+
+<h2>3. Product page: buy box</h2>
+<p class="note">Rules for every option: no size pre-selected; "Size me later" offered; bundle choice sits above Add to bag; Buy now only for one set.</p>
+<div class="row">
+  <div class="opt rec"><h3><b>A</b>Stacked: size, then sets, then buttons</h3>
+    <div class="phone"><div class="ph" style="aspect-ratio:4/5">Hand video / photo first</div>
+      <div class="pad"><div class="t1"></div><div class="t2"></div><div class="small">★ 4.8 · Rs 1,299</div>
+        <div style="display:flex;justify-content:space-between"><span class="lbl">Size</span><span class="small"><u>Size chart</u></span></div>
+        <div class="chips"><div class="chip">XS</div><div class="chip">S</div><div class="chip">M</div><div class="chip">L</div><div class="chip wide">Not sure? Size me later</div></div>
+        <div class="lbl">How many sets</div><div class="tier sel">1 set<span>Rs 1,299</span></div><div class="tier">2 sets<span>free glue remover</span></div><div class="tier">3 sets<span>save Rs [X]</span></div>
+        <div class="btn dis">Add to bag</div><div class="btn o">Buy now</div><div class="small">Hand-painted · made to order · dispatch 24–48 h · COD</div></div>
+      <div class="sticky"><div class="btn">Add to bag</div></div></div>
+    <p class="why">One clear path from top to bottom. Buttons look inactive until a size (or Size me later) is picked; tapping them anyway shows a polite note at the size step.</p></div>
+  <div class="opt"><h3><b>B</b>Sets first, size inside a sheet</h3>
+    <div class="phone"><div class="ph" style="aspect-ratio:4/5">Hand video / photo</div>
+      <div class="pad"><div class="t1"></div><div class="small">★ 4.8 · Rs 1,299</div><div class="tier sel">1 set</div><div class="tier">2 sets</div><div class="tier">3 sets</div><div class="btn">Choose size and add</div></div>
+      <div class="scrim"></div><div class="sheet"><div class="lbl">Your size</div><div class="chips"><div class="chip">XS</div><div class="chip">S</div><div class="chip">M</div><div class="chip">L</div><div class="chip wide">Size me later</div></div><div class="btn">Add to bag</div></div></div>
+    <p class="why">Pushes bigger bundles harder, but hides the size choice one tap deeper, where most of the doubt sits.</p></div>
+  <div class="opt"><h3><b>C</b>Bundle cards as the main choice</h3>
+    <div class="phone"><div class="ph" style="aspect-ratio:1/1">Hand photo</div>
+      <div class="pad"><div class="t1"></div><div class="grid2" style="grid-template-columns:1fr 1fr 1fr"><div class="tier sel" style="flex-direction:column">1<span>set</span></div><div class="tier" style="flex-direction:column">2<span>+ remover</span></div><div class="tier" style="flex-direction:column">3<span>save</span></div></div>
+        <div class="chips"><div class="chip">XS</div><div class="chip">S</div><div class="chip">M</div><div class="chip">L</div><div class="chip wide">Size me later</div></div><div class="btn">Add to bag</div></div></div>
+    <p class="why">Compact, but three small tiles make offer copy cramped at 375 px and read as "sale".</p></div>
+</div>
+
+<h2>4. Collection with quick add</h2>
+<div class="row">
+  <div class="opt rec"><h3><b>A</b>Two-column grid, quick add opens the size sheet</h3>
+    <div class="phone"><div class="pad"><div class="t1"></div><div class="chips"><div class="chip">Colour</div><div class="chip">Shape</div><div class="chip">Sort</div></div>
+      <div class="grid2"><div class="card"><div class="ph">Hand 4:5</div><div class="t2"></div><div class="small">Almond · medium · ★ 4.9</div><div class="small">Rs 1,299</div><div class="btn o">Quick add</div></div>
+        <div class="card"><div class="ph">Hand 4:5</div><div class="t2"></div><div class="small">Square · short</div><div class="small">Rs 1,499 · <i>one quiet offer line</i></div><div class="btn o">Quick add</div></div></div></div>
+      <div class="scrim"></div><div class="sheet"><div style="display:flex;justify-content:space-between"><b>Product name</b><span>✕</span></div><div class="chips"><div class="chip">XS</div><div class="chip">S</div><div class="chip">M</div><div class="chip">L</div><div class="chip wide">Not sure? Size me later</div></div><div class="small">Between sizes? [to confirm] · <u>Size chart</u></div><div class="btn">Add to bag</div></div></div></div>
+</div>
+
+<h2>5. Cart drawer</h2>
+<div class="row">
+  <div class="opt rec"><h3><b>A</b>Progress on top, nudge under lines, one button</h3>
+    <div class="phone" style="min-height:700px"><div class="pad"><div style="display:flex;justify-content:space-between"><b>Your bag (1)</b><span>✕</span></div>
+      <div class="small">Rs 300 away from a free gift</div><div class="progress"><i></i></div>
+      <div class="line"><div class="ph">Hand</div><div class="grow"><div class="t2"></div><div class="small">Size: M</div><div class="chips"><div class="chip" style="height:36px">− 1 +</div></div></div><div class="small">Rs 1,299</div></div>
+      <div class="info">Add one more set, get a free nail glue remover.</div>
+      <div class="hr"></div><div class="lbl">Add to your order</div>
+      <div class="line"><div class="ph" style="height:64px">Kit</div><div class="grow"><div class="t2"></div><div class="small">Nail care kit · coming soon</div></div><div class="chip" style="height:36px">Notify me</div></div>
+      <div class="hr"></div><div class="small">You save Rs 0 · Delivery: [rule to confirm] · COD Rs 99</div><div class="btn">Checkout · Rs 1,299</div></div></div>
+    <p class="why">Order of attention: reward, what she's buying, the next set, then pay. Nothing floats over the checkout button.</p></div>
+  <div class="opt"><h3><b>B</b>Nudge as an upsell card at the top</h3>
+    <div class="phone" style="min-height:700px"><div class="pad"><div style="display:flex;justify-content:space-between"><b>Your bag (1)</b><span>✕</span></div>
+      <div class="info">Add one more set, get a free nail glue remover<br><div class="grid2" style="margin-top:8px"><div class="card"><div class="ph">Bestseller</div></div><div class="card"><div class="ph">Bestseller</div></div></div></div>
+      <div class="line"><div class="ph">Hand</div><div class="grow"><div class="t2"></div><div class="small">Size: to confirm on WhatsApp</div></div><div class="small">Rs 1,299</div></div>
+      <div class="small">Rs 300 away from a free gift</div><div class="progress"><i></i></div><div class="btn">Checkout · Rs 1,299</div></div></div>
+    <p class="why">Stronger push to a second set with product suggestions, but heavier and busier; the bag contents slip below the fold.</p></div>
+  <div class="opt"><h3><b>C</b>Minimal</h3>
+    <div class="phone" style="min-height:700px"><div class="pad"><div style="display:flex;justify-content:space-between"><b>Your bag (1)</b><span>✕</span></div>
+      <div class="line"><div class="ph">Hand</div><div class="grow"><div class="t2"></div><div class="small">Size: M</div></div><div class="small">Rs 1,299</div></div>
+      <div class="small">Add one more set, get a free nail glue remover.</div><div class="btn">Checkout · Rs 1,299</div></div></div>
+    <p class="why">Calmest, but leaves the gift bar and add-ons out, which the brief needs for order value.</p></div>
+</div>
+
+<h2>6. Nail care kit page</h2>
+<div class="row">
+  <div class="opt rec"><h3><b>Coming soon</b></h3>
+    <div class="phone"><div class="ph" style="aspect-ratio:4/5">Kit hero</div><div class="pad"><div class="lbl">Coming soon</div><div class="t1"></div><div class="t3"></div><div class="t3"></div>
+      <div class="chip wide">Email address</div><div class="btn">Notify me</div><div class="small">Price hidden (or "around Rs 3,299" if approved)</div></div></div></div>
+  <div class="opt"><h3><b>Launched</b></h3>
+    <div class="phone"><div class="ph" style="aspect-ratio:4/5">Kit hero</div><div class="pad"><div class="t1"></div><div class="small">Rs [price]</div><div class="lbl">What's inside</div><div class="t3"></div><div class="t3"></div>
+      <div class="tier">Kit + a press-on set<span>bundle price</span></div><div class="btn">Add to bag</div></div></div></div>
+</div>
+
+</main>
+</body>
+</html>

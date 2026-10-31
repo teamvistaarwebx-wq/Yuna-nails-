@@ -1,0 +1,20 @@
+{%- if predictive_search.performed -%}
+  <div data-predictive class="predictive">
+    {%- if predictive_search.resources.products.size > 0 -%}
+      <ul class="predictive__list" role="list">
+        {%- for product in predictive_search.resources.products -%}
+          <li class="predictive__item">
+            <a href="{{ product.url }}">
+              <div class="media">{% if product.featured_media %}{{ product.featured_media.preview_image | image_url: width: 120 | image_tag: loading: 'lazy', alt: '' }}{% endif %}</div>
+              <span>{{ product.title }}</span>
+              {% render 'price', product: product %}
+            </a>
+          </li>
+        {%- endfor -%}
+      </ul>
+      <p style="margin-top:16px"><a href="{{ routes.search_url }}?q={{ predictive_search.terms | url_encode }}&type=product">See all results for “{{ predictive_search.terms }}”</a></p>
+    {%- else -%}
+      <p class="muted">No designs found for “{{ predictive_search.terms }}”. Try a colour or a shape.</p>
+    {%- endif -%}
+  </div>
+{%- endif -%}

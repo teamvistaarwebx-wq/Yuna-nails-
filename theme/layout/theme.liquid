@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="{{ request.locale.iso_code }}">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="{{ settings.color_cream }}">
+  <link rel="canonical" href="{{ canonical_url }}">
+  <link rel="preconnect" href="https://cdn.shopify.com" crossorigin>
+  {{ 'urbanist-latin-400-normal.woff2' | asset_url | preload_tag: as: 'font', type: 'font/woff2', crossorigin: 'anonymous' }}
+  {%- if settings.favicon != blank -%}<link rel="icon" type="image/png" href="{{ settings.favicon | image_url: width: 64, height: 64 }}">{%- endif -%}
+  <title>{{ page_title }}{% if current_page != 1 %} · Page {{ current_page }}{% endif %}{% unless page_title contains shop.name %} · {{ shop.name }}{% endunless %}</title>
+  {%- if page_description %}<meta name="description" content="{{ page_description | escape }}">{% endif %}
+  {% render 'meta-tags' %}
+  {% render 'design-tokens' %}
+  {{ 'base.css' | asset_url | stylesheet_tag }}
+  <script>
+    window.Yuna = {
+      routes: {
+        root: {{ routes.root_url | append: '/' | replace: '//', '/' | json }},
+        cart_add_url: {{ routes.cart_add_url | json }},
+        cart_change_url: {{ routes.cart_change_url | json }},
+        predictive_search_url: {{ routes.predictive_search_url | json }}
+      },
+      moneyFormat: {{ shop.money_format | json }},
+      sizeOption: {{ settings.size_option_name | json }},
+      sizeLaterVariant: {{ settings.size_later_variant | json }},
+      sizeLaterProperty: {{ settings.size_later_property | json }},
+      sizeLaterLabel: {{ settings.size_later_label | json }},
+      sizeLaterLabelShort: "to confirm on WhatsApp",
+      sizeChartTitle: "Find your size",
+      buyNowMulti: {{ settings.buy_now_multi | json }},
+      buyNowMode: {{ settings.buy_now_mode | json }},
+      predictiveSearch: {{ settings.predictive_search | json }}
+    };
+  </script>
+  <script src="{{ 'theme.js' | asset_url }}" defer></script>
+  {{ content_for_header }}
+</head>
+<body class="template-{{ template.name }}{% if template.suffix %} template-{{ template.suffix }}{% endif %}">
+  <a class="skip-link visually-hidden" href="#MainContent">Skip to content</a>
+  {% sections 'header-group' %}
+  <main id="MainContent" tabindex="-1">
+    {{ content_for_layout }}
+  </main>
+  {% sections 'footer-group' %}
+
+  <dialog class="overlay overlay--drawer" id="CartDrawer" aria-label="Your bag">
+    {% section 'cart-drawer' %}
+  </dialog>
+  {% render 'size-sheet' %}
+  <dialog class="overlay overlay--sheet" id="SearchDialog" aria-label="Search">
+    <div class="overlay__header">
+      <form action="{{ routes.search_url }}" method="get" role="search" style="flex:1">
+        <label class="visually-hidden" for="SearchInput">Search</label>
+        <input class="input" id="SearchInput" type="search" name="q" placeholder="Search designs, shapes, colours" autocomplete="off">
+        <input type="hidden" name="type" value="product">
+      </form>
+      <button type="button" class="icon-button" data-close aria-label="Close search">{% render 'icon', name: 'close' %}</button>
+    </div>
+    <div class="overlay__body" id="PredictiveResults" aria-live="polite"></div>
+  </dialog>
+
+  {%- if settings.floating_whatsapp and settings.whatsapp_number != blank -%}
+    <a class="wa-float" href="{% render 'whatsapp-url' %}" target="_blank" rel="noopener" aria-label="Chat with us on WhatsApp">{% render 'icon', name: 'whatsapp' %}</a>
+  {%- endif -%}
+</body>
+</html>

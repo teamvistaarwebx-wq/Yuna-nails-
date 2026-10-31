@@ -48,7 +48,12 @@ Headings: Darel Rolando (self-hosted woff2 once licensed; fallback serif until t
 
 ## Layout
 
-- `theme/`: the Shopify theme (pulled from live, then edited on an unpublished copy only)
-- `docs/`: phase reports, open items, asset list
+- `theme/`: the new theme (built fresh, lean OS 2.0). Push only to an unpublished theme.
+- `live-theme/`: the current live theme, pulled read-only for the audit and for moving app settings (not in git until pulled)
+- `docs/`: phase reports, open items, asset list, handoff
 - `scripts/`: audit and measurement tooling (`npm run …`, see `package.json`)
+- `scripts/preview/`: local preview of `theme/` with sample data and a working cart (`npm run preview`, `npm run preview:shoot`)
+- `preview/screens/`: screenshots at 375 px (`-m`) and 1440 px (`-d`)
 - `wireframes/`: Phase 1 greyscale HTML
+
+Before committing theme changes: `npm run theme:check` must report no offences.

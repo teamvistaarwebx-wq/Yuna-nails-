@@ -1,0 +1,28 @@
+{%- comment -%} FAQ. Answers use fact tokens like [dispatch_time], so every number comes from Theme settings > Facts. {%- endcomment -%}
+<div class="section">
+  <div class="page-width" style="max-width:760px">
+    <h1 class="h1">{{ section.settings.heading }}</h1>
+    {%- for block in section.blocks -%}
+      {%- if block.type == 'group' -%}
+        <h2 class="h3" style="margin-top:40px" {{ block.shopify_attributes }}>{{ block.settings.title }}</h2>
+      {%- else -%}
+        <details class="accordion" {{ block.shopify_attributes }}>
+          <summary>{{ block.settings.question }}</summary>
+          <div class="accordion__body rte">{% render 'fact', text: block.settings.answer %}</div>
+        </details>
+      {%- endif -%}
+    {%- endfor -%}
+    <p style="margin-top:40px">Still have a question? <a href="{% render 'whatsapp-url' %}" target="_blank" rel="noopener">Ask us on WhatsApp</a>.</p>
+  </div>
+</div>
+{% schema %}
+{
+  "name": "FAQ",
+  "settings": [ { "type": "text", "id": "heading", "label": "Heading", "default": "Questions" } ],
+  "blocks": [
+    { "type": "group", "name": "Group heading", "settings": [ { "type": "text", "id": "title", "label": "Heading" } ] },
+    { "type": "question", "name": "Question", "settings": [ { "type": "text", "id": "question", "label": "Question" }, { "type": "richtext", "id": "answer", "label": "Answer", "info": "Use [dispatch_time], [cod_fee], [exchange_window], [apply_minutes], [wear_count], [cost_per_wear], [delivery], [between_sizes]." } ] }
+  ],
+  "presets": [ { "name": "FAQ" } ]
+}
+{% endschema %}

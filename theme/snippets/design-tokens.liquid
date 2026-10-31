@@ -1,0 +1,67 @@
+{%- comment -%}
+  The only place brand values become CSS. Components read these custom properties and nothing else.
+  Derived tones are mixed from the four brand colours here, at render time.
+{%- endcomment -%}
+{%- liquid
+  assign burgundy = settings.color_burgundy
+  assign cream = settings.color_cream
+  assign olive = settings.color_olive_gold
+  assign blue = settings.color_soft_blue
+  assign unit = settings.space_unit
+  assign scale = settings.heading_scale | divided_by: 100.0
+  assign heading_family = settings.heading_font_fallback
+  if settings.heading_font_woff2 != blank
+    assign heading_family = '"' | append: settings.heading_font_family | append: '", ' | append: settings.heading_font_fallback
+  endif
+-%}
+<style>
+  @font-face { font-family: "Urbanist"; src: url({{ 'urbanist-latin-400-normal.woff2' | asset_url }}) format("woff2"); font-weight: 400; font-style: normal; font-display: swap; }
+  @font-face { font-family: "Urbanist"; src: url({{ 'urbanist-latin-500-normal.woff2' | asset_url }}) format("woff2"); font-weight: 500; font-style: normal; font-display: swap; }
+  @font-face { font-family: "Urbanist"; src: url({{ 'urbanist-latin-600-normal.woff2' | asset_url }}) format("woff2"); font-weight: 600; font-style: normal; font-display: swap; }
+  {%- if settings.heading_font_woff2 != blank %}
+  @font-face { font-family: "{{ settings.heading_font_family }}"; src: url({{ settings.heading_font_woff2 }}) format("woff2"); font-weight: 400; font-style: normal; font-display: swap; }
+  {%- endif -%}
+  {%- if settings.heading_font_italic_woff2 != blank %}
+  @font-face { font-family: "{{ settings.heading_font_family }}"; src: url({{ settings.heading_font_italic_woff2 }}) format("woff2"); font-weight: 400; font-style: italic; font-display: swap; }
+  {%- endif %}
+  :root {
+    --color-burgundy: {{ burgundy }};
+    --color-cream: {{ cream }};
+    --color-olive-gold: {{ olive }};
+    --color-soft-blue: {{ blue }};
+
+    --color-text: var(--color-burgundy);
+    --color-bg: var(--color-cream);
+    --color-accent: var(--color-olive-gold);
+    --color-info: {{ blue | color_mix: cream, 55 }};
+    --color-surface: {{ cream | color_mix: '#ffffff', 45 }};
+    --color-muted: {{ burgundy | color_mix: cream, 72 }};
+    --color-line: {{ burgundy | color_mix: cream, 18 }};
+    --color-line-strong: {{ burgundy | color_mix: cream, 40 }};
+    --color-placeholder: {{ burgundy | color_mix: cream, 8 }};
+    --color-scrim: {{ burgundy | color_modify: 'alpha', 0.32 }};
+    --color-on-primary: var(--color-cream);
+
+    --font-heading: {{ heading_family }};
+    --font-body: "Urbanist", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    --heading-scale: {{ scale }};
+
+    --radius: {{ settings.radius }}px;
+    --radius-sheet: calc(var(--radius) * 2);
+    --line: 1px;
+    --space-1: {{ unit }}px;
+    --space-2: {{ unit | times: 2 }}px;
+    --space-3: {{ unit | times: 3 }}px;
+    --space-4: {{ unit | times: 4 }}px;
+    --space-5: {{ unit | times: 5 }}px;
+    --space-6: {{ unit | times: 6 }}px;
+    --space-8: {{ unit | times: 8 }}px;
+    --space-10: {{ unit | times: 10 }}px;
+    --tap: 44px;
+    --button-height: 48px;
+    --gutter: 16px;
+    --page-width: 1280px;
+    --logo-width: {{ settings.logo_width }}px;
+    --logo-width-desktop: {{ settings.logo_width_desktop }}px;
+  }
+</style>

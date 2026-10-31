@@ -1,0 +1,109 @@
+{
+  "sections": {
+    "main": {
+      "type": "main-product",
+      "blocks": {},
+      "block_order": [],
+      "settings": {
+        "show_buy_now": true,
+        "show_remover": true
+      }
+    },
+    "details": {
+      "type": "product-details",
+      "blocks": {
+        "description": {
+          "type": "description",
+          "settings": {
+            "title": "About this design"
+          }
+        },
+        "box": {
+          "type": "box",
+          "settings": {
+            "title": "What's in the box"
+          }
+        },
+        "apply": {
+          "type": "steps",
+          "settings": {
+            "title": "How to apply",
+            "text": "<ol><li>Clean and dry your nails. Push back cuticles and buff lightly.</li><li>Match a press-on to each nail before you start.</li><li>Add a thin layer of nail glue to your nail and to the press-on.</li><li>Press it on at an angle from the cuticle, then hold firmly.</li></ol><p>Takes about [apply_minutes] minutes.</p>"
+          }
+        },
+        "remove": {
+          "type": "steps",
+          "settings": {
+            "title": "Removal",
+            "text": "<ol><li>Soak your nails in warm soapy water for a few minutes.</li><li>Gently lift each press-on from the side. Never pull.</li><li>Clean off any glue and keep the set for next time.</li></ol>"
+          }
+        },
+        "safety": {
+          "type": "safety",
+          "settings": {
+            "title": "Safety notes"
+          }
+        },
+        "sizing": {
+          "type": "sizing",
+          "settings": {
+            "title": "Size and fit",
+            "text": "<p>Wrong size? Exchange it free within [exchange_window].</p>"
+          }
+        },
+        "faq1": {
+          "type": "faq",
+          "settings": {
+            "title": "How long do they last?",
+            "text": "<p>Reusable for about [wear_count] wears with gentle removal. That's about Rs [cost_per_wear] a wear.</p>"
+          }
+        },
+        "faq2": {
+          "type": "faq",
+          "settings": {
+            "title": "When will it ship?",
+            "text": "<p>Each set is hand-painted to order and dispatched in [dispatch_time].</p>"
+          }
+        }
+      },
+      "block_order": [
+        "description",
+        "box",
+        "apply",
+        "remove",
+        "safety",
+        "sizing",
+        "faq1",
+        "faq2"
+      ],
+      "settings": {
+        "heading": "",
+        "open_first": false,
+        "narrow": false
+      }
+    },
+    "reviews": {
+      "type": "apps",
+      "blocks": {},
+      "block_order": [],
+      "settings": {
+        "heading": "Reviews",
+        "anchor": "reviews"
+      }
+    },
+    "recommendations": {
+      "type": "product-recommendations",
+      "settings": {
+        "heading": "Pair it with a second set",
+        "text": "Two sets come with a free nail glue remover.",
+        "limit": 4
+      }
+    }
+  },
+  "order": [
+    "main",
+    "details",
+    "reviews",
+    "recommendations"
+  ]
+}

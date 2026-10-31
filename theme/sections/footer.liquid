@@ -1,0 +1,61 @@
+<footer class="site-footer">
+  <div class="page-width">
+    <div class="footer__grid">
+      <div>
+        <p class="footer__title">{{ section.settings.signup_heading }}</p>
+        <p class="small" style="opacity:.85">{{ section.settings.signup_text }}</p>
+        {%- form 'customer', id: 'FooterSignup', class: 'footer__signup' -%}
+          <input type="hidden" name="contact[tags]" value="newsletter,welcome-offer">
+          {%- if form.posted_successfully? -%}
+            <p class="small" role="status">Thank you for joining. {{ section.settings.signup_success }}</p>
+          {%- else -%}
+            <label class="visually-hidden" for="FooterSignupEmail">Email address</label>
+            <div class="inline-form">
+              <input class="input" id="FooterSignupEmail" type="email" name="contact[email]" autocomplete="email" placeholder="Email address" required>
+              <button class="button" type="submit">Sign up</button>
+            </div>
+            {%- if form.errors -%}<p class="small" role="alert">Please check your email address.</p>{%- endif -%}
+          {%- endif -%}
+        {%- endform -%}
+        <div class="footer__social" style="margin-top:16px">
+          {%- if settings.instagram_url != blank -%}<a class="icon-button" href="{{ settings.instagram_url }}" target="_blank" rel="noopener" aria-label="Instagram">{% render 'icon', name: 'instagram' %}</a>{%- endif -%}
+          {%- if settings.youtube_url != blank -%}<a class="icon-button" href="{{ settings.youtube_url }}" target="_blank" rel="noopener" aria-label="YouTube">{% render 'icon', name: 'youtube' %}</a>{%- endif -%}
+          <a class="icon-button" href="{% render 'whatsapp-url' %}" target="_blank" rel="noopener" aria-label="WhatsApp">{% render 'icon', name: 'whatsapp' %}</a>
+          {%- if settings.contact_email != blank -%}<a class="icon-button" href="mailto:{{ settings.contact_email }}" aria-label="Email">{% render 'icon', name: 'mail' %}</a>{%- endif -%}
+        </div>
+      </div>
+      {%- for block in section.blocks -%}
+        <nav {{ block.shopify_attributes }} aria-label="{{ block.settings.heading | escape }}">
+          <p class="footer__title">{{ block.settings.heading }}</p>
+          <ul class="footer__list">
+            {%- for link in block.settings.menu.links -%}<li><a href="{{ link.url }}">{{ link.title }}</a></li>{%- endfor -%}
+          </ul>
+        </nav>
+      {%- endfor -%}
+    </div>
+    <div class="footer__bottom">
+      <p style="margin:0">© {{ 'now' | date: '%Y' }} {{ shop.name }}. Hand-painted in India.</p>
+      {%- if section.settings.show_payment_icons -%}
+        <ul class="payment-icons" aria-label="Payment methods">
+          {%- for type in shop.enabled_payment_types -%}<li>{{ type | payment_type_svg_tag }}</li>{%- endfor -%}
+        </ul>
+      {%- endif -%}
+    </div>
+  </div>
+</footer>
+{% schema %}
+{
+  "name": "Footer",
+  "class": "section-footer",
+  "settings": [
+    { "type": "text", "id": "signup_heading", "label": "Sign-up heading", "default": "Join the Yuna list" },
+    { "type": "text", "id": "signup_text", "label": "Sign-up text", "default": "New designs first, and 10% off your first order." },
+    { "type": "text", "id": "signup_success", "label": "Sign-up success line", "default": "Your welcome code is on its way to your inbox." },
+    { "type": "checkbox", "id": "show_payment_icons", "label": "Show payment icons", "default": true }
+  ],
+  "blocks": [
+    { "type": "menu", "name": "Menu", "settings": [ { "type": "text", "id": "heading", "label": "Heading", "default": "Shop" }, { "type": "link_list", "id": "menu", "label": "Menu" } ] }
+  ],
+  "max_blocks": 3
+}
+{% endschema %}

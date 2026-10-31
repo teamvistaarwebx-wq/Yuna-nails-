@@ -1,0 +1,5 @@
+{%- comment -%} Customer reel (9:16, muted, poster first). - video, image, caption {%- endcomment -%}
+<div class="ugc-tile">
+  {% render 'media', video: video, image: image, ratio: 'tall', sizes: '(min-width: 990px) 20vw, 42vw', label: 'Customer reel 9:16' %}
+  {%- if caption != blank -%}<p class="ugc-tile__caption">{{ caption }}</p>{%- endif -%}
+</div>

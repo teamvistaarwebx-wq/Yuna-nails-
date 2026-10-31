@@ -1,0 +1,28 @@
+{%- comment -%}
+  Nail care kit teaser: "coming soon" with an inline notify form, or launched with a link to buy.
+  One switch: Theme settings > Products > "Nail care kit is coming soon".
+  - heading, text, form_id
+{%- endcomment -%}
+{%- liquid
+  assign kit = settings.kit_product
+  assign kit_img = settings.kit_image | default: kit.featured_media.preview_image
+  assign kit_url = kit.url | default: '/products/nail-care-kit'
+-%}
+<div class="kit-teaser">
+  <a href="{{ kit_url }}" tabindex="-1" aria-hidden="true">
+    {% render 'media', image: kit_img, ratio: 'portrait', sizes: '(min-width: 990px) 45vw, 100vw', label: 'Nail care kit 4:5' %}
+  </a>
+  <div>
+    {%- if settings.kit_coming_soon -%}<p class="kit-status">Coming soon</p>{%- endif -%}
+    <h2 class="h2">{{ heading | default: settings.kit_name }}</h2>
+    <p class="lead">{{ text | default: settings.kit_promise }}</p>
+    {%- if settings.kit_coming_soon -%}
+      {%- if settings.kit_price_hint != blank -%}<p class="price">{{ settings.kit_price_hint }}</p>{%- endif -%}
+      {% render 'notify-form', form_id: form_id %}
+    {%- else -%}
+      {%- if kit -%}<p>{% render 'price', product: kit %}</p>{%- endif -%}
+      {%- if settings.kit_bundle_label != blank -%}<p class="small muted">{{ settings.kit_bundle_label }}</p>{%- endif -%}
+      <a class="button" href="{{ kit_url }}">Shop the kit</a>
+    {%- endif -%}
+  </div>
+</div>

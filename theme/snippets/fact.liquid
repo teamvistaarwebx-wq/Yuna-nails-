@@ -1,0 +1,48 @@
+{%- comment -%}
+  Replaces fact tokens such as [dispatch_time] in a piece of text with the values in Theme settings > Facts.
+  An empty fact becomes a marked placeholder so it is never guessed.
+  Usage: {% render 'fact', text: block.settings.answer %}
+{%- endcomment -%}
+{%- liquid
+  assign out = text
+  if out contains '[[TO CONFIRM'
+    assign out = out | replace: '[[TO CONFIRM', '<mark class="to-confirm">[[TO CONFIRM' | replace: ']]', ']]</mark>'
+  endif
+  if out contains '['
+    assign keys = 'apply_minutes,dispatch_time,cod_fee,cost_per_wear,wear_count,exchange_window,nails_per_set,size_confirm_hours,between_sizes,delivery'
+    assign keys = keys | split: ','
+    for key in keys
+      assign token = '[' | append: key | append: ']'
+      unless out contains token
+        continue
+      endunless
+      case key
+        when 'apply_minutes'
+          assign value = settings.apply_minutes
+        when 'dispatch_time'
+          assign value = settings.dispatch_time
+        when 'cod_fee'
+          assign value = settings.cod_fee
+        when 'cost_per_wear'
+          assign value = settings.cost_per_wear
+        when 'wear_count'
+          assign value = settings.wear_count
+        when 'exchange_window'
+          assign value = settings.exchange_window
+        when 'nails_per_set'
+          assign value = settings.nails_per_set
+        when 'size_confirm_hours'
+          assign value = settings.size_confirm_hours
+        when 'between_sizes'
+          assign value = settings.size_between
+        when 'delivery'
+          assign value = settings.delivery_line
+      endcase
+      if value == blank
+        assign value = '<mark class="to-confirm">[[TO CONFIRM: ' | append: key | replace: '_', ' ' | append: ']]</mark>'
+      endif
+      assign out = out | replace: token, value
+    endfor
+  endif
+  echo out
+-%}

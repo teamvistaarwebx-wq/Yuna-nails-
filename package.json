@@ -4,15 +4,21 @@
   "type": "module",
   "description": "Yuna Nails Shopify theme redesign (Vistaar WebX). See CLAUDE.md.",
   "scripts": {
-    "theme:pull": "shopify theme pull --live --path theme",
+    "theme:pull": "shopify theme pull --live --path live-theme",
     "theme:list": "shopify theme list",
-    "audit:inventory": "node scripts/theme-inventory.mjs theme",
-    "audit:facts": "node scripts/fact-scan.mjs theme",
-    "audit:speed": "node scripts/baseline.mjs"
+    "theme:check": "shopify theme check --path theme",
+    "theme:push:unpublished": "echo 'Push only to an unpublished theme: shopify theme push --path theme --unpublished (first time) or --theme <unpublished id>. Never --live.'",
+    "audit:inventory": "node scripts/theme-inventory.mjs live-theme",
+    "audit:facts": "node scripts/fact-scan.mjs live-theme",
+    "audit:speed": "node scripts/baseline.mjs",
+    "preview": "node scripts/preview/server.mjs 4600",
+    "preview:shoot": "node scripts/preview/shoot.mjs http://localhost:4600 preview/screens"
   },
   "devDependencies": {
+    "@fontsource/urbanist": "^5.3.0",
     "@shopify/cli": "5.0.0",
     "chrome-launcher": "^1.2.2",
-    "lighthouse": "13.6.0"
+    "lighthouse": "13.6.0",
+    "liquidjs": "^10.30.1"
   }
 }

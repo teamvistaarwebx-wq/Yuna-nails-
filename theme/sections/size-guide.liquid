@@ -1,0 +1,37 @@
+<div class="section">
+  <div class="page-width" style="max-width:760px">
+    <h1 class="h1">{{ section.settings.heading }}</h1>
+    <p class="lead muted">{% render 'fact', text: section.settings.intro %}</p>
+
+    <h2 class="h3" style="margin-top:40px">How to measure</h2>
+    <ol class="steps">
+      {%- for block in section.blocks -%}<li class="step" {{ block.shopify_attributes }}><div><p class="step__title">{{ block.settings.title }}</p><p class="step__text">{{ block.settings.text }}</p></div></li>{%- endfor -%}
+    </ol>
+
+    <h2 class="h3" style="margin-top:40px">Size chart</h2>
+    {% render 'size-chart' %}
+
+    <div class="note" style="margin-top:40px">
+      <h2 class="h3">Not sure? We'll size you</h2>
+      <p>{% render 'fact', text: settings.size_later_note %}</p>
+      {%- if section.settings.photo != blank -%}<div style="max-width:240px;margin:16px 0">{% render 'media', image: section.settings.photo, ratio: 'portrait', sizes: '240px' %}</div>{%- endif -%}
+      <a class="button" href="{% render 'whatsapp-url', message: 'Hi Yuna, please help me with my size.' %}" target="_blank" rel="noopener">{% render 'icon', name: 'whatsapp' %} Send a photo on WhatsApp</a>
+    </div>
+
+    <h2 class="h3" style="margin-top:40px">Free size exchange</h2>
+    <p>{% render 'fact', text: section.settings.exchange %}</p>
+  </div>
+</div>
+{% schema %}
+{
+  "name": "Size guide",
+  "settings": [
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Size guide" },
+    { "type": "text", "id": "intro", "label": "Intro", "default": "Four sizes, XS to L. Here's how to find yours." },
+    { "type": "image_picker", "id": "photo", "label": "Example: hand next to a coin or card" },
+    { "type": "textarea", "id": "exchange", "label": "Exchange text", "default": "If a size doesn't fit, tell us within [exchange_window] of delivery and we'll exchange it free." }
+  ],
+  "blocks": [ { "type": "step", "name": "Step", "settings": [ { "type": "text", "id": "title", "label": "Title" }, { "type": "textarea", "id": "text", "label": "Text" } ] } ],
+  "presets": [ { "name": "Size guide" } ]
+}
+{% endschema %}

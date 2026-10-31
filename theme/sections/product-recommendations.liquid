@@ -1,0 +1,36 @@
+{%- comment -%} "Add a second set" recommendations, loaded by Shopify's recommendations engine. {%- endcomment -%}
+<div class="section" data-recommendations>
+  <div class="page-width">
+    {%- if recommendations.performed and recommendations.products_count > 0 -%}
+      <div class="section__head"><h2 class="h2">{{ section.settings.heading }}</h2>{%- if section.settings.text != blank -%}<p class="muted">{{ section.settings.text }}</p>{%- endif -%}</div>
+      <div class="rail">
+        {%- for p in recommendations.products limit: section.settings.limit -%}{% render 'product-card', product: p %}{%- endfor -%}
+      </div>
+    {%- elsif recommendations.performed == false -%}
+      <div data-url="{{ routes.product_recommendations_url }}?section_id={{ section.id }}&product_id={{ product.id }}&limit={{ section.settings.limit }}&intent=related"></div>
+      <script>
+        (() => {
+          const el = document.currentScript.previousElementSibling;
+          const load = () => fetch(el.dataset.url).then((r) => r.text()).then((html) => {
+            const d = new DOMParser().parseFromString(html, 'text/html').querySelector('[data-recommendations]');
+            if (d) el.closest('[data-recommendations]').replaceWith(d);
+          });
+          if ('IntersectionObserver' in window) {
+            const io = new IntersectionObserver((e) => { if (e[0].isIntersecting) { io.disconnect(); load(); } }, { rootMargin: '400px' });
+            io.observe(el.closest('[data-recommendations]'));
+          } else { load(); }
+        })();
+      </script>
+    {%- endif -%}
+  </div>
+</div>
+{% schema %}
+{
+  "name": "Second-set suggestions",
+  "settings": [
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Pair it with a second set" },
+    { "type": "text", "id": "text", "label": "Text", "default": "Two sets come with a free nail glue remover." },
+    { "type": "range", "id": "limit", "label": "Products", "min": 2, "max": 8, "step": 1, "default": 4 }
+  ]
+}
+{% endschema %}

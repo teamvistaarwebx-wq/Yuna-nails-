@@ -1,0 +1,6 @@
+{%- comment -%} Star rating from the standard reviews metafields (Judge.me keeps these in sync). {%- endcomment -%}
+{%- assign rating = product.metafields.reviews.rating.value -%}
+{%- if rating != blank -%}
+  {%- assign count = product.metafields.reviews.rating_count.value | default: 0 -%}
+  <span class="{{ class | default: 'card__rating' }}"><span aria-hidden="true">★</span> {{ rating.rating | round: 1 }}{% if count > 0 %} ({{ count }})<span class="visually-hidden"> reviews</span>{% endif %}<span class="visually-hidden"> out of {{ rating.scale_max }}</span></span>
+{%- endif -%}

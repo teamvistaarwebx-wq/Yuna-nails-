@@ -1,0 +1,187 @@
+{
+  "sections": {
+    "hero": {
+      "type": "hero",
+      "settings": {
+        "heading": "Salon nails, <em>at home</em>",
+        "text": "Hand-painted press-ons, made to order for your size.",
+        "button_label": "Shop the sets",
+        "show_trust": true
+      }
+    },
+    "bestsellers": {
+      "type": "featured-collection",
+      "settings": {
+        "eyebrow": "Most loved",
+        "heading": "Bestsellers",
+        "text": "Our top-reviewed sets.",
+        "limit": 4,
+        "button_label": "Shop all bestsellers"
+      }
+    },
+    "kit": {
+      "type": "kit-teaser",
+      "settings": {}
+    },
+    "moods": {
+      "type": "shop-by-mood",
+      "blocks": {
+        "mood1": {
+          "type": "mood",
+          "settings": {
+            "title": "[[TO CONFIRM: mood]]"
+          }
+        },
+        "mood2": {
+          "type": "mood",
+          "settings": {
+            "title": "[[TO CONFIRM: mood]]"
+          }
+        },
+        "mood3": {
+          "type": "mood",
+          "settings": {
+            "title": "[[TO CONFIRM: mood]]"
+          }
+        },
+        "mood4": {
+          "type": "mood",
+          "settings": {
+            "title": "[[TO CONFIRM: mood]]"
+          }
+        }
+      },
+      "block_order": [
+        "mood1",
+        "mood2",
+        "mood3",
+        "mood4"
+      ],
+      "settings": {
+        "heading": "Shop by <em>mood</em>"
+      }
+    },
+    "build": {
+      "type": "build-your-set",
+      "settings": {
+        "heading": "Build your <em>set</em>",
+        "text": "Mix any designs. Offers apply in the bag.",
+        "button_label": "Choose your sets"
+      }
+    },
+    "apply": {
+      "type": "how-to-apply",
+      "blocks": {
+        "step1": {
+          "type": "step",
+          "settings": {
+            "title": "Prep",
+            "text": "Clean and dry your nails. Push back cuticles and buff lightly."
+          }
+        },
+        "step2": {
+          "type": "step",
+          "settings": {
+            "title": "Glue",
+            "text": "Add a thin layer of nail glue to your nail and to the press-on."
+          }
+        },
+        "step3": {
+          "type": "step",
+          "settings": {
+            "title": "Press",
+            "text": "Press on from the cuticle and hold firmly. Done."
+          }
+        }
+      },
+      "block_order": [
+        "step1",
+        "step2",
+        "step3"
+      ],
+      "settings": {
+        "heading": "How to <em>apply</em>",
+        "text": "About [apply_minutes] minutes, no salon needed.",
+        "show_safety": true
+      }
+    },
+    "real_hands": {
+      "type": "real-hands",
+      "blocks": {
+        "reel1": {
+          "type": "reel",
+          "settings": {
+            "caption": ""
+          }
+        },
+        "reel2": {
+          "type": "reel",
+          "settings": {
+            "caption": ""
+          }
+        },
+        "reel3": {
+          "type": "reel",
+          "settings": {
+            "caption": ""
+          }
+        },
+        "review1": {
+          "type": "review",
+          "settings": {
+            "quote": "",
+            "name": "",
+            "source": "Judge.me",
+            "stars": 5
+          }
+        }
+      },
+      "block_order": [
+        "reel1",
+        "reel2",
+        "reel3",
+        "review1"
+      ],
+      "settings": {
+        "heading": "Real <em>hands</em>",
+        "text": "Worn by our customers, filmed by them."
+      }
+    },
+    "instagram": {
+      "type": "instagram",
+      "blocks": {
+        "post1": {
+          "type": "post",
+          "settings": {}
+        },
+        "post2": {
+          "type": "post",
+          "settings": {}
+        },
+        "post3": {
+          "type": "post",
+          "settings": {}
+        }
+      },
+      "block_order": [
+        "post1",
+        "post2",
+        "post3"
+      ],
+      "settings": {
+        "heading": "On <em>Instagram</em>",
+        "handle": "@yunanails"
+      }
+    }
+  },
+  "order": [
+    "hero",
+    "bestsellers",
+    "kit",
+    "moods",
+    "build",
+    "apply",
+    "real_hands",
+    "instagram"
+  ]
+}

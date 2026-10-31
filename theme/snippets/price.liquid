@@ -1,0 +1,17 @@
+{%- comment -%} Price for a product or a variant. Compare-at only when the theme setting allows it. {%- endcomment -%}
+{%- liquid
+  if variant
+    assign amount = variant.price
+    assign compare = variant.compare_at_price
+    assign varies = false
+  else
+    assign amount = product.price_min
+    assign compare = product.compare_at_price_min
+    assign varies = product.price_varies
+  endif
+-%}
+<span class="price">
+  {%- if varies %}From {% endif -%}
+  {{ amount | money_without_trailing_zeros }}
+  {%- if settings.show_compare_at and compare > amount %}<s><span class="visually-hidden">Was </span>{{ compare | money_without_trailing_zeros }}</s>{% endif -%}
+</span>

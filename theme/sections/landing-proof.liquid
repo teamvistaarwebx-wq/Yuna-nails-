@@ -1,0 +1,48 @@
+{%- comment -%} Ad landing, screen 3: real hands, how to apply in 3 steps, one real review, one button. {%- endcomment -%}
+<div class="section section--surface">
+  <div class="page-width stack">
+    <h2 class="h2">{{ section.settings.heading }}</h2>
+    <div class="rail">
+      {%- for block in section.blocks -%}
+        {%- if block.type == 'reel' -%}<div {{ block.shopify_attributes }}>{% render 'ugc-tile', video: block.settings.video, image: block.settings.poster %}</div>{%- endif -%}
+      {%- endfor -%}
+    </div>
+    <div style="margin-top:32px" class="two-col">
+      <div>
+        <p class="eyebrow">How to apply</p>
+        <ol class="steps">
+          {%- for block in section.blocks -%}
+            {%- if block.type == 'step' -%}<li class="step" {{ block.shopify_attributes }}><div><p class="step__title">{{ block.settings.title }}</p><p class="step__text">{{ block.settings.text }}</p></div></li>{%- endif -%}
+          {%- endfor -%}
+        </ol>
+        <p class="small" style="margin-top:12px"><a href="{{ routes.root_url }}#how-to-apply">Safety notes</a></p>
+      </div>
+      <div class="stack">
+        {%- for block in section.blocks -%}
+          {%- case block.type -%}
+            {%- when 'review' -%}{%- if block.settings.quote != blank -%}<div {{ block.shopify_attributes }}>{% render 'review-tile', quote: block.settings.quote, name: block.settings.name, source: block.settings.source, stars: block.settings.stars %}</div>{%- endif -%}
+            {%- when '@app' -%}{% render block %}
+          {%- endcase -%}
+        {%- endfor -%}
+        <a class="button button--full" href="{{ section.settings.button_link | default: routes.all_products_collection_url }}">{{ section.settings.button_label }}</a>
+      </div>
+    </div>
+  </div>
+</div>
+{% schema %}
+{
+  "name": "Landing: proof",
+  "settings": [
+    { "type": "inline_richtext", "id": "heading", "label": "Heading", "default": "Real hands, <em>real</em> reviews" },
+    { "type": "text", "id": "button_label", "label": "Button label", "default": "Shop the sets" },
+    { "type": "url", "id": "button_link", "label": "Button link" }
+  ],
+  "blocks": [
+    { "type": "reel", "name": "Customer reel", "settings": [ { "type": "video", "id": "video", "label": "Reel (9:16)" }, { "type": "image_picker", "id": "poster", "label": "Poster frame" } ] },
+    { "type": "step", "name": "Step", "settings": [ { "type": "text", "id": "title", "label": "Title" }, { "type": "textarea", "id": "text", "label": "Text" } ] },
+    { "type": "review", "name": "Review quote", "limit": 1, "settings": [ { "type": "paragraph", "content": "Copy one real Judge.me review word for word, or use the Judge.me app block instead." }, { "type": "textarea", "id": "quote", "label": "Review" }, { "type": "text", "id": "name", "label": "Customer first name" }, { "type": "text", "id": "source", "label": "Source", "default": "Judge.me" }, { "type": "range", "id": "stars", "label": "Stars", "min": 0, "max": 5, "step": 1, "default": 5 } ] },
+    { "type": "@app" }
+  ],
+  "presets": [ { "name": "Landing: proof" } ]
+}
+{% endschema %}

@@ -1,0 +1,30 @@
+<div class="section">
+  <div class="page-width" style="max-width:640px">
+    <h1 class="h1">{{ section.settings.heading }}</h1>
+    <p class="lead muted">{{ section.settings.text }}</p>
+    <div class="stack" style="margin:24px 0 40px">
+      <a class="button button--full" href="{% render 'whatsapp-url' %}" target="_blank" rel="noopener">{% render 'icon', name: 'whatsapp' %} Chat on WhatsApp</a>
+      {%- if settings.contact_email != blank -%}<a class="button button--secondary button--full" href="mailto:{{ settings.contact_email }}">{% render 'icon', name: 'mail' %} {{ settings.contact_email }}</a>{%- endif -%}
+    </div>
+    <h2 class="h3">Or write to us</h2>
+    {%- form 'contact', id: 'ContactForm', class: 'stack' -%}
+      {%- if form.posted_successfully? -%}<p class="form-message" role="status">Thank you. We'll reply soon.</p>{%- endif -%}
+      {%- if form.errors -%}<p class="form-message form-message--error" role="alert">Please check the highlighted fields.</p>{%- endif -%}
+      <div class="field"><label for="ContactName">Name</label><input class="input" id="ContactName" name="contact[name]" autocomplete="name" value="{{ form.name }}"></div>
+      <div class="field"><label for="ContactEmail">Email</label><input class="input" id="ContactEmail" type="email" name="contact[email]" autocomplete="email" required value="{{ form.email }}"></div>
+      <div class="field"><label for="ContactPhone">Phone (optional)</label><input class="input" id="ContactPhone" type="tel" name="contact[phone]" autocomplete="tel" value="{{ form.phone }}"></div>
+      <div class="field"><label for="ContactBody">Message</label><textarea class="input" id="ContactBody" name="contact[body]" required>{{ form.body }}</textarea></div>
+      <button class="button" type="submit">Send</button>
+    {%- endform -%}
+  </div>
+</div>
+{% schema %}
+{
+  "name": "Contact",
+  "settings": [
+    { "type": "text", "id": "heading", "label": "Heading", "default": "We're here to help" },
+    { "type": "text", "id": "text", "label": "Text", "default": "WhatsApp is the quickest way to reach us." }
+  ],
+  "presets": [ { "name": "Contact" } ]
+}
+{% endschema %}

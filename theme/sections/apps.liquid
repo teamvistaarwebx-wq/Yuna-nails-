@@ -1,0 +1,20 @@
+{%- if section.blocks.size > 0 -%}
+<div class="section section--tight" id="{{ section.settings.anchor | default: section.id }}">
+  <div class="page-width">
+    {%- if section.settings.heading != blank -%}<h2 class="h2">{{ section.settings.heading }}</h2>{%- endif -%}
+    {%- for block in section.blocks -%}{% render block %}{%- endfor -%}
+  </div>
+</div>
+{%- endif -%}
+{% schema %}
+{
+  "name": "Apps",
+  "tag": "section",
+  "settings": [
+    { "type": "text", "id": "heading", "label": "Heading" },
+    { "type": "text", "id": "anchor", "label": "Anchor id", "info": "Use 'reviews' on product pages so the star rating links here." }
+  ],
+  "blocks": [ { "type": "@app" } ],
+  "presets": [ { "name": "Apps" } ]
+}
+{% endschema %}

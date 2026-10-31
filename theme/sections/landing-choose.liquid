@@ -1,0 +1,36 @@
+{%- comment -%} Ad landing, screen 2: shop by mood, bundle offers, kit teaser. {%- endcomment -%}
+<div class="section">
+  <div class="page-width stack">
+    <h2 class="h2">{{ section.settings.heading }}</h2>
+    <div class="grid">
+      {%- for block in section.blocks -%}
+        <a class="mood" href="{{ block.settings.collection.url | default: '#' }}" {{ block.shopify_attributes }}>
+          {% render 'media', image: block.settings.image, ratio: 'portrait', sizes: '(min-width: 990px) 22vw, 46vw', label: 'Mood photo 4:5' %}
+          <span class="mood__title">{% render 'fact', text: block.settings.title %}<span aria-hidden="true">→</span></span>
+        </a>
+      {%- endfor -%}
+    </div>
+    <div style="margin-top:40px">
+      <p class="eyebrow">{{ section.settings.offers_heading }}</p>
+      {% render 'offer-cards' %}
+    </div>
+    {%- if section.settings.show_kit -%}
+      <div style="margin-top:24px">{% render 'addon-card', type: 'kit' %}</div>
+    {%- endif -%}
+  </div>
+</div>
+{% schema %}
+{
+  "name": "Landing: choose",
+  "settings": [
+    { "type": "inline_richtext", "id": "heading", "label": "Heading", "default": "Find your <em>mood</em>" },
+    { "type": "text", "id": "offers_heading", "label": "Offers heading", "default": "More sets, more value" },
+    { "type": "checkbox", "id": "show_kit", "label": "Show the nail care kit", "default": true }
+  ],
+  "blocks": [
+    { "type": "mood", "name": "Mood", "settings": [ { "type": "text", "id": "title", "label": "Mood", "default": "[[TO CONFIRM: mood]]" }, { "type": "image_picker", "id": "image", "label": "Photo (4:5)" }, { "type": "collection", "id": "collection", "label": "Collection" } ] }
+  ],
+  "max_blocks": 4,
+  "presets": [ { "name": "Landing: choose", "blocks": [ { "type": "mood" }, { "type": "mood" } ] } ]
+}
+{% endschema %}

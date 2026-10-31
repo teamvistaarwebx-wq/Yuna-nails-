@@ -1,0 +1,619 @@
+[
+  {
+    "name": "theme_info",
+    "theme_name": "Yuna Soft Glam",
+    "theme_version": "0.1.0",
+    "theme_author": "Vistaar WebX",
+    "theme_documentation_url": "https://github.com/teamvistaarwebx-wq/Yuna-nails-",
+    "theme_support_url": "https://github.com/teamvistaarwebx-wq/Yuna-nails-"
+  },
+  {
+    "name": "Brand: colours",
+    "settings": [
+      {
+        "type": "paragraph",
+        "content": "Brand tokens. Every component reads these, so changing one here changes the whole site."
+      },
+      {
+        "type": "color",
+        "id": "color_burgundy",
+        "label": "Burgundy (text, primary buttons, logo)",
+        "default": "#3D0B0E"
+      },
+      {
+        "type": "color",
+        "id": "color_cream",
+        "label": "Cream (page background)",
+        "default": "#F4EAE0"
+      },
+      {
+        "type": "color",
+        "id": "color_olive_gold",
+        "label": "Olive gold (prices, small accents, links)",
+        "default": "#52451B"
+      },
+      {
+        "type": "color",
+        "id": "color_soft_blue",
+        "label": "Soft blue (info notes, secondary surfaces; never text)",
+        "default": "#B8D4E3"
+      }
+    ]
+  },
+  {
+    "name": "Brand: type and shape",
+    "settings": [
+      {
+        "type": "text",
+        "id": "heading_font_family",
+        "label": "Heading font name",
+        "default": "Darel Rolando",
+        "info": "Shown only when the web font files below are set. Otherwise the fallback serif is used."
+      },
+      {
+        "type": "text",
+        "id": "heading_font_woff2",
+        "label": "Heading font file URL (woff2, regular)",
+        "info": "Upload the licensed woff2 to Content > Files and paste its URL. [[TO CONFIRM: Darel Rolando web licence and files]]"
+      },
+      {
+        "type": "text",
+        "id": "heading_font_italic_woff2",
+        "label": "Heading font file URL (woff2, italic)"
+      },
+      {
+        "type": "text",
+        "id": "heading_font_fallback",
+        "label": "Heading fallback stack",
+        "default": "\"Iowan Old Style\", \"Palatino Linotype\", Palatino, \"Noto Serif\", Georgia, serif"
+      },
+      {
+        "type": "range",
+        "id": "heading_scale",
+        "label": "Heading size scale",
+        "min": 90,
+        "max": 130,
+        "step": 5,
+        "unit": "%",
+        "default": 100
+      },
+      {
+        "type": "range",
+        "id": "radius",
+        "label": "Corner radius",
+        "min": 0,
+        "max": 16,
+        "step": 2,
+        "unit": "px",
+        "default": 8
+      },
+      {
+        "type": "range",
+        "id": "space_unit",
+        "label": "Spacing unit",
+        "min": 4,
+        "max": 12,
+        "step": 4,
+        "unit": "px",
+        "default": 8
+      }
+    ]
+  },
+  {
+    "name": "Brand: logo",
+    "settings": [
+      {
+        "type": "image_picker",
+        "id": "logo",
+        "label": "Logo (variant 1 or 3 only, never variant 2)",
+        "info": "[[TO CONFIRM: which files are variants 1 and 3]]"
+      },
+      {
+        "type": "range",
+        "id": "logo_width",
+        "label": "Logo width on phones",
+        "min": 40,
+        "max": 160,
+        "step": 4,
+        "unit": "px",
+        "default": 64
+      },
+      {
+        "type": "range",
+        "id": "logo_width_desktop",
+        "label": "Logo width on desktop",
+        "min": 40,
+        "max": 240,
+        "step": 4,
+        "unit": "px",
+        "default": 88
+      },
+      {
+        "type": "image_picker",
+        "id": "favicon",
+        "label": "Favicon"
+      }
+    ]
+  },
+  {
+    "name": "Offers: bundles",
+    "settings": [
+      {
+        "type": "paragraph",
+        "content": "These lines describe the offers. The discount itself is applied by the discount set up in Shopify admin. Keep both in step. [[TO CONFIRM: final bundle setup, due before Day 3]]"
+      },
+      {
+        "type": "select",
+        "id": "savings_display",
+        "label": "Show savings as",
+        "options": [
+          {
+            "value": "rupees",
+            "label": "Rupees (Rs 300 off)"
+          },
+          {
+            "value": "percent",
+            "label": "Percent (15% off)"
+          },
+          {
+            "value": "both",
+            "label": "Both"
+          }
+        ],
+        "default": "rupees",
+        "info": "[[TO CONFIRM: rupees or percent]]"
+      },
+      {
+        "type": "header",
+        "content": "1 set"
+      },
+      {
+        "type": "text",
+        "id": "bundle_1_label",
+        "label": "Label",
+        "default": "1 set"
+      },
+      {
+        "type": "header",
+        "content": "2 sets"
+      },
+      {
+        "type": "checkbox",
+        "id": "bundle_2_enabled",
+        "label": "Offer 2 sets",
+        "default": true
+      },
+      {
+        "type": "text",
+        "id": "bundle_2_label",
+        "label": "Label",
+        "default": "2 sets"
+      },
+      {
+        "type": "text",
+        "id": "bundle_2_benefit",
+        "label": "Benefit line",
+        "default": "Free nail glue remover"
+      },
+      {
+        "type": "number",
+        "id": "bundle_2_saving_rupees",
+        "label": "Rupee saving (leave empty if the benefit is a gift)"
+      },
+      {
+        "type": "number",
+        "id": "bundle_2_saving_percent",
+        "label": "Percent saving (leave empty if none)"
+      },
+      {
+        "type": "header",
+        "content": "3 sets"
+      },
+      {
+        "type": "checkbox",
+        "id": "bundle_3_enabled",
+        "label": "Offer 3 sets",
+        "default": true
+      },
+      {
+        "type": "text",
+        "id": "bundle_3_label",
+        "label": "Label",
+        "default": "3 sets"
+      },
+      {
+        "type": "text",
+        "id": "bundle_3_benefit",
+        "label": "Benefit line (leave empty to show the saving)"
+      },
+      {
+        "type": "number",
+        "id": "bundle_3_saving_rupees",
+        "label": "Rupee saving",
+        "info": "[[TO CONFIRM: 3-set rupee saving]]"
+      },
+      {
+        "type": "number",
+        "id": "bundle_3_saving_percent",
+        "label": "Percent saving"
+      },
+      {
+        "type": "header",
+        "content": "Buy now"
+      },
+      {
+        "type": "select",
+        "id": "buy_now_multi",
+        "label": "When 2 or 3 sets are chosen, Buy now…",
+        "options": [
+          {
+            "value": "hide",
+            "label": "is hidden"
+          },
+          {
+            "value": "cart",
+            "label": "adds to bag and opens the bag"
+          }
+        ],
+        "default": "hide"
+      },
+      {
+        "type": "select",
+        "id": "buy_now_mode",
+        "label": "Buy now for one set goes to",
+        "options": [
+          {
+            "value": "permalink",
+            "label": "Checkout with only this set (cart link)"
+          },
+          {
+            "value": "cart_checkout",
+            "label": "Add to bag, then checkout"
+          }
+        ],
+        "default": "permalink",
+        "info": "Confirm with GoKwik which one their checkout picks up."
+      },
+      {
+        "type": "header",
+        "content": "Cart nudges"
+      },
+      {
+        "type": "text",
+        "id": "nudge_one_set",
+        "label": "Nudge with 1 set in the bag",
+        "default": "Add one more set, get a free nail glue remover."
+      },
+      {
+        "type": "text",
+        "id": "nudge_two_sets",
+        "label": "Nudge with 2 sets in the bag",
+        "default": "Add a 3rd set and save [saving].",
+        "info": "[saving] is replaced with the 3-set saving above."
+      },
+      {
+        "type": "header",
+        "content": "Product cards"
+      },
+      {
+        "type": "checkbox",
+        "id": "show_compare_at",
+        "label": "Show strike-through compare-at price",
+        "default": false,
+        "info": "[[TO CONFIRM: keep or drop 'Rs 500 off']]"
+      },
+      {
+        "type": "text",
+        "id": "card_offer_line",
+        "label": "One quiet offer line on cards",
+        "info": "Leave empty for none. Example: 2 sets, free glue remover."
+      }
+    ]
+  },
+  {
+    "name": "Offers: gifts",
+    "settings": [
+      {
+        "type": "paragraph",
+        "content": "Gift progress bar in the bag. Leave a threshold empty to switch that step off. [[TO CONFIRM: thresholds and gifts]]"
+      },
+      {
+        "type": "checkbox",
+        "id": "gift_bar_enabled",
+        "label": "Show gift progress bar",
+        "default": true
+      },
+      {
+        "type": "number",
+        "id": "gift_1_threshold",
+        "label": "Step 1: order value (Rs)"
+      },
+      {
+        "type": "text",
+        "id": "gift_1_label",
+        "label": "Step 1: gift"
+      },
+      {
+        "type": "number",
+        "id": "gift_2_threshold",
+        "label": "Step 2: order value (Rs)"
+      },
+      {
+        "type": "text",
+        "id": "gift_2_label",
+        "label": "Step 2: gift"
+      },
+      {
+        "type": "number",
+        "id": "gift_3_threshold",
+        "label": "Step 3: order value (Rs)"
+      },
+      {
+        "type": "text",
+        "id": "gift_3_label",
+        "label": "Step 3: gift"
+      },
+      {
+        "type": "text",
+        "id": "gift_away_text",
+        "label": "Progress text",
+        "default": "[amount] away from [gift]"
+      },
+      {
+        "type": "text",
+        "id": "gift_unlocked_text",
+        "label": "Unlocked text",
+        "default": "[gift] unlocked"
+      }
+    ]
+  },
+  {
+    "name": "Products",
+    "settings": [
+      {
+        "type": "collection",
+        "id": "bestsellers_collection",
+        "label": "Bestsellers collection",
+        "info": "Manually curated, top-reviewed sets until the client's list arrives. Used by the empty bag, empty cart and 404."
+      },
+      {
+        "type": "checkbox",
+        "id": "kit_coming_soon",
+        "label": "Nail care kit is coming soon",
+        "default": true,
+        "info": "One switch for the kit page, the homepage kit slot and the bag add-on."
+      },
+      {
+        "type": "product",
+        "id": "kit_product",
+        "label": "Nail care kit product"
+      },
+      {
+        "type": "text",
+        "id": "kit_name",
+        "label": "Kit name",
+        "default": "Nail care kit"
+      },
+      {
+        "type": "text",
+        "id": "kit_promise",
+        "label": "Kit promise (one line)",
+        "default": "Everything for salon-neat nails at home."
+      },
+      {
+        "type": "image_picker",
+        "id": "kit_image",
+        "label": "Kit image (used while coming soon)"
+      },
+      {
+        "type": "text",
+        "id": "kit_price_hint",
+        "label": "Price hint while coming soon",
+        "info": "Leave empty to hide the price. [[TO CONFIRM: may we show 'around Rs 3,299'?]]"
+      },
+      {
+        "type": "text",
+        "id": "kit_bundle_label",
+        "label": "Set + kit bundle line (shown once launched)",
+        "info": "[[TO CONFIRM: set + kit bundle price]]"
+      },
+      {
+        "type": "product",
+        "id": "remover_product",
+        "label": "Nail glue remover product",
+        "info": "The add-on stays hidden until this is set. [[TO CONFIRM: remover SKU and launch]]"
+      }
+    ]
+  },
+  {
+    "name": "Sizing",
+    "settings": [
+      {
+        "type": "text",
+        "id": "size_option_name",
+        "label": "Size option name on products",
+        "default": "Size"
+      },
+      {
+        "type": "text",
+        "id": "sizes",
+        "label": "Sizes, in order",
+        "default": "XS, S, M, L"
+      },
+      {
+        "type": "text",
+        "id": "size_later_label",
+        "label": "Size me later: button",
+        "default": "Not sure? Size me later"
+      },
+      {
+        "type": "text",
+        "id": "size_later_variant",
+        "label": "Size me later: variant value",
+        "default": "Size me later",
+        "info": "If a product has a variant with this size value, it is used. Otherwise the first size is added with the line property below."
+      },
+      {
+        "type": "text",
+        "id": "size_later_property",
+        "label": "Size me later: line property (shows on the order)",
+        "default": "To confirm on WhatsApp"
+      },
+      {
+        "type": "textarea",
+        "id": "size_later_note",
+        "label": "Size me later: what happens next",
+        "default": "After your order, we'll message you on WhatsApp. Send a photo of your hand next to a coin or card, and we'll confirm your size within [size_confirm_hours] hours. Your order waits until then."
+      },
+      {
+        "type": "text",
+        "id": "size_confirm_hours",
+        "label": "Hours to confirm a size",
+        "default": "24"
+      },
+      {
+        "type": "text",
+        "id": "size_required_note",
+        "label": "Note when no size is picked",
+        "default": "Please choose your size, or pick Size me later."
+      },
+      {
+        "type": "textarea",
+        "id": "size_chart",
+        "label": "Size chart (mm)",
+        "info": "One size per line: Size | Thumb | Index | Middle | Ring | Little. Example: XS | 15 | 11 | 12 | 11 | 9. [[TO CONFIRM: copy from the current size chart]]"
+      },
+      {
+        "type": "text",
+        "id": "size_between",
+        "label": "Between two sizes",
+        "info": "[[TO CONFIRM: choose the larger or the smaller size]]"
+      }
+    ]
+  },
+  {
+    "name": "Facts",
+    "settings": [
+      {
+        "type": "paragraph",
+        "content": "The single source for business facts. Pages, FAQ answers and product details read these. In rich text, write [apply_minutes], [dispatch_time], [cod_fee], [cost_per_wear], [wear_count], [exchange_window], [nails_per_set], [size_confirm_hours], [between_sizes] or [delivery] and the value is filled in."
+      },
+      {
+        "type": "text",
+        "id": "nails_per_set",
+        "label": "Nails per set",
+        "default": "10"
+      },
+      {
+        "type": "text",
+        "id": "dispatch_time",
+        "label": "Dispatch time",
+        "default": "24–48 hours"
+      },
+      {
+        "type": "text",
+        "id": "cod_fee",
+        "label": "COD fee (Rs)",
+        "default": "99"
+      },
+      {
+        "type": "text",
+        "id": "exchange_window",
+        "label": "Free size exchange window",
+        "default": "48 hours"
+      },
+      {
+        "type": "text",
+        "id": "apply_minutes",
+        "label": "Application time (minutes)",
+        "info": "[[TO CONFIRM: 5 minutes or about 2]]"
+      },
+      {
+        "type": "text",
+        "id": "cost_per_wear",
+        "label": "Cost per wear (Rs)",
+        "info": "[[TO CONFIRM]]"
+      },
+      {
+        "type": "text",
+        "id": "wear_count",
+        "label": "Number of wears",
+        "info": "[[TO CONFIRM]]"
+      },
+      {
+        "type": "text",
+        "id": "delivery_line",
+        "label": "Delivery line",
+        "info": "[[TO CONFIRM: free shipping above Rs 999, or free on prepaid]]"
+      },
+      {
+        "type": "text",
+        "id": "trust_line",
+        "label": "Short trust line",
+        "default": "Hand-painted · Made to order · Dispatch in [dispatch_time] · COD"
+      },
+      {
+        "type": "textarea",
+        "id": "box_contents",
+        "label": "What's in the box (one item per line)",
+        "default": "[nails_per_set] hand-painted nails\nNail glue\n[[TO CONFIRM: adhesive tabs]]"
+      },
+      {
+        "type": "richtext",
+        "id": "safety_notes",
+        "label": "Safety notes",
+        "default": "<ul><li>Don't apply on broken or infected nails.</li><li>Keep nail glue away from eyes and skin.</li><li>Remove by soaking in warm soapy water. Never pull them off.</li></ul>"
+      }
+    ]
+  },
+  {
+    "name": "Contact and social",
+    "settings": [
+      {
+        "type": "text",
+        "id": "whatsapp_number",
+        "label": "WhatsApp number (with country code, digits only)",
+        "info": "Example: 919876543210. [[TO CONFIRM: copy from the current site]]"
+      },
+      {
+        "type": "text",
+        "id": "whatsapp_message",
+        "label": "WhatsApp opening message",
+        "default": "Hi Yuna, I need help with my nails."
+      },
+      {
+        "type": "text",
+        "id": "contact_email",
+        "label": "Email"
+      },
+      {
+        "type": "url",
+        "id": "instagram_url",
+        "label": "Instagram"
+      },
+      {
+        "type": "url",
+        "id": "youtube_url",
+        "label": "YouTube"
+      },
+      {
+        "type": "checkbox",
+        "id": "floating_whatsapp",
+        "label": "Show a small WhatsApp button",
+        "default": false,
+        "info": "Off by default. When on, it sits above the sticky add-to-bag bar and never covers it."
+      }
+    ]
+  },
+  {
+    "name": "Search",
+    "settings": [
+      {
+        "type": "checkbox",
+        "id": "predictive_search",
+        "label": "Predictive search",
+        "default": true
+      }
+    ]
+  }
+]

@@ -1,0 +1,19 @@
+{%- layout none -%}
+<!doctype html>
+<html lang="{{ request.locale.iso_code }}">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Your {{ shop.name }} gift card</title>
+  {% render 'design-tokens' %}
+  {{ 'base.css' | asset_url | stylesheet_tag }}
+</head>
+<body>
+  <main class="section center"><div class="page-width stack" style="max-width:480px">
+    <h1 class="h2">Your gift card</h1>
+    <p class="h1">{{ gift_card.balance | money_without_trailing_zeros }}</p>
+    {%- if gift_card.expired or gift_card.enabled == false -%}<p class="muted">This gift card is no longer active.</p>{%- endif -%}
+    <p>Code: <strong>{{ gift_card.code | format_code }}</strong></p>
+    <a class="button" href="{{ shop.url }}">Shop now</a>
+  </div></main>
+</body>
+</html>

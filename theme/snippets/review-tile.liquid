@@ -1,0 +1,6 @@
+{%- comment -%} A review quoted from a real customer review (Judge.me, Justdial). Never write one. - quote, name, source, stars {%- endcomment -%}
+<figure class="review-tile" style="margin:0">
+  {%- if stars > 0 -%}<p class="review-tile__stars" aria-label="{{ stars }} out of 5 stars">{% for i in (1..stars) %}★{% endfor %}</p>{%- endif -%}
+  <blockquote class="review-tile__quote" style="margin:0">{{ quote }}</blockquote>
+  <figcaption class="review-tile__name">{{ name }}{% if source != blank %} · {{ source }}{% endif %}</figcaption>
+</figure>

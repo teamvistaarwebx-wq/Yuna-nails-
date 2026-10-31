@@ -1,0 +1,43 @@
+<div class="page-width section--tight" style="max-width:720px">
+  <h1 class="h1">Your bag</h1>
+  {%- if cart.item_count == 0 -%}
+    <div class="cart-empty stack">
+      <p class="muted">Your bag is empty. Start with our most-loved sets.</p>
+      <a class="button" href="{{ settings.bestsellers_collection.url | default: routes.all_products_collection_url }}">Shop bestsellers</a>
+    </div>
+    {%- if settings.bestsellers_collection != blank -%}
+      <div class="section"><h2 class="h3">Bestsellers</h2><div class="grid">{%- for p in settings.bestsellers_collection.products limit: 4 -%}{% render 'product-card', product: p %}{%- endfor -%}</div></div>
+    {%- endif -%}
+    <div class="section">{% render 'kit-block', form_id: 'KitNotifyEmptyCart' %}</div>
+  {%- else -%}
+    {% render 'gift-progress' %}
+    <form action="{{ routes.cart_url }}" method="post" id="CartPageForm">
+      <ul class="cart-lines">
+        {%- for item in cart.items -%}
+          <li class="cart-line">
+            <div class="media cart-line__media">{%- if item.image -%}{{ item.image | image_url: width: 200 | image_tag: loading: 'lazy', alt: '' }}{%- endif -%}</div>
+            <div>
+              <a class="cart-line__title" href="{{ item.url }}">{{ item.product.title }}</a>
+              {%- if item.properties.Size == settings.size_later_property -%}<p class="cart-line__meta cart-line__meta--flag">Size to confirm on WhatsApp</p>{%- else -%}<p class="cart-line__meta">{{ item.variant.title }}</p>{%- endif -%}
+              <label class="visually-hidden" for="Qty-{{ forloop.index }}">Quantity</label>
+              <input class="input" style="width:88px;margin-top:8px" id="Qty-{{ forloop.index }}" type="number" name="updates[]" value="{{ item.quantity }}" min="0">
+            </div>
+            <div class="cart-line__end"><span class="price">{{ item.final_line_price | money_without_trailing_zeros }}</span><a class="cart-line__remove" href="{{ item.url_to_remove }}">Remove</a></div>
+          </li>
+        {%- endfor -%}
+      </ul>
+      <div class="cart-summary" style="margin-top:16px">
+        {%- if cart.total_discount > 0 -%}<div class="cart-summary__row cart-summary__save"><span>You save</span><span>{{ cart.total_discount | money_without_trailing_zeros }}</span></div>{%- endif -%}
+        <div class="cart-summary__row"><span>Delivery</span><span>{% render 'fact', text: '[delivery]' %}</span></div>
+        <div class="cart-summary__row muted"><span>Cash on delivery</span><span>Rs {% render 'fact', text: '[cod_fee]' %} fee</span></div>
+      </div>
+      <div class="stack">
+        <button type="submit" name="update" class="button button--secondary button--full">Update bag</button>
+        <button type="submit" name="checkout" class="button button--full">Checkout · {{ cart.total_price | money_without_trailing_zeros }}</button>
+      </div>
+    </form>
+  {%- endif -%}
+</div>
+{% schema %}
+{ "name": "Cart", "settings": [] }
+{% endschema %}

@@ -1,0 +1,45 @@
+<div class="section section--surface" id="how-to-apply">
+  <div class="page-width two-col">
+    <div>
+      <div class="section__head">
+        <h2 class="h2">{{ section.settings.heading }}</h2>
+        {%- if section.settings.text != blank -%}<p class="muted">{% render 'fact', text: section.settings.text %}</p>{%- endif -%}
+      </div>
+      <div class="apply-video">{% render 'media', video: section.settings.video, image: section.settings.poster, ratio: 'tall', sizes: '(min-width: 990px) 360px, 100vw', label: 'How to apply 9:16' %}</div>
+    </div>
+    <div>
+      <ol class="steps">
+        {%- for block in section.blocks -%}
+          <li class="step" {{ block.shopify_attributes }}><div><p class="step__title">{{ block.settings.title }}</p><p class="step__text">{% render 'fact', text: block.settings.text %}</p></div></li>
+        {%- endfor -%}
+      </ol>
+      {%- if section.settings.show_safety -%}
+        <details class="accordion" style="margin-top:24px" id="safety">
+          <summary>Safety notes</summary>
+          <div class="accordion__body"><div class="note rte">{{ settings.safety_notes }}</div></div>
+        </details>
+      {%- endif -%}
+    </div>
+  </div>
+</div>
+{% schema %}
+{
+  "name": "How to apply",
+  "settings": [
+    { "type": "inline_richtext", "id": "heading", "label": "Heading", "default": "How to <em>apply</em>" },
+    { "type": "text", "id": "text", "label": "Text", "default": "About [apply_minutes] minutes, no salon needed." },
+    { "type": "video", "id": "video", "label": "Video (9:16, works muted)" },
+    { "type": "image_picker", "id": "poster", "label": "Poster frame" },
+    { "type": "checkbox", "id": "show_safety", "label": "Show safety notes", "default": true }
+  ],
+  "blocks": [
+    { "type": "step", "name": "Step", "settings": [ { "type": "text", "id": "title", "label": "Title", "default": "Step" }, { "type": "textarea", "id": "text", "label": "Text" } ] }
+  ],
+  "max_blocks": 5,
+  "presets": [ { "name": "How to apply", "blocks": [
+    { "type": "step", "settings": { "title": "Prep", "text": "Clean and dry your nails. Push back cuticles and buff lightly." } },
+    { "type": "step", "settings": { "title": "Glue", "text": "Add a thin layer of nail glue to your nail and to the press-on." } },
+    { "type": "step", "settings": { "title": "Press", "text": "Press on from the cuticle and hold firmly. Done." } }
+  ] } ]
+}
+{% endschema %}

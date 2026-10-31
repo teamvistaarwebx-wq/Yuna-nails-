@@ -1,0 +1,9 @@
+{%- comment -%} WhatsApp link from Theme settings > Contact. - message (optional) {%- endcomment -%}
+{%- liquid
+  assign msg = message | default: settings.whatsapp_message | url_encode
+  if settings.whatsapp_number != blank
+    echo 'https://wa.me/' | append: settings.whatsapp_number | append: '?text=' | append: msg
+  else
+    echo '#whatsapp-number-to-confirm'
+  endif
+-%}
